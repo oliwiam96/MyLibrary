@@ -64,8 +64,14 @@ namespace MyLibrary.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+
+            var currentUser = UserManager.FindById(User.Identity.GetUserId());
+
             var model = new IndexViewModel
             {
+                FirstName = currentUser.FirstName,
+                SecondName = currentUser.SecondName,
+                Email = currentUser.Email,
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),

@@ -138,3 +138,11 @@ C:\Users\Oliwia\source\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.pdb
 C:\Users\Oliwia\source\repos\MyLibrary\MyLibrary\bin\SendGrid.dll
 C:\Users\Oliwia\source\repos\MyLibrary\MyLibrary\bin\SendGrid.pdb
 C:\Users\Oliwia\source\repos\MyLibrary\MyLibrary\bin\SendGrid.xml
+C:\Users\Oliwia\source\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.Migrations.InitialCreate.resources
+C:\Users\Oliwia\source\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.csproj.GenerateResource.cache
+C:\Users\Oliwia\source\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.Migrations.FirstName.resources
+C:\Users\Oliwia\source\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.Migrations.SecondName.resources
+C:\Users\Oliwia\source\repos\MyLibrary\MyLibrary\bin\HtmlAgilityPack.dll
+C:\Users\Oliwia\source\repos\MyLibrary\MyLibrary\bin\HtmlAgilityPack.pdb
+C:\Users\Oliwia\source\repos\MyLibrary\MyLibrary\bin\HtmlAgilityPack.xml
+C:\Users\Oliwia\source\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.Migrations.Books.resources

@@ -49,9 +49,8 @@ namespace MyLibrary.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Adres e-mail")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Nazwa użytkownika")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -64,6 +63,19 @@ namespace MyLibrary.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        [Display(Name = "Nazwa użytkownika")]
+        public string UserName { get; set; }
+
+        [Required]
+        [Display(Name = "Imię")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Nazwisko")]
+        public string SecondName { get; set; }
+
+
         [Required]
         [EmailAddress]
         [Display(Name = "Adres e-mail")]

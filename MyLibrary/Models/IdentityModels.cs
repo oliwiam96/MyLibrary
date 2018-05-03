@@ -7,8 +7,13 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace MyLibrary.Models
 {
     // Możesz dodać dane profilu dla użytkownika, dodając więcej właściwości do klasy ApplicationUser. Odwiedź stronę https://go.microsoft.com/fwlink/?LinkID=317594, aby dowiedzieć się więcej.
+    // dziedziczy po IdentityUser, które zapewnia unikalny email i unikalna nazwe uzytkownika
     public class ApplicationUser : IdentityUser
     {
+
+        public string FirstName { get; set; }
+        public string SecondName { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Element authenticationType musi pasować do elementu zdefiniowanego w elemencie CookieAuthenticationOptions.AuthenticationType
@@ -29,5 +34,7 @@ namespace MyLibrary.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<MyLibrary.Models.Book> Books { get; set; }
     }
 }
