@@ -10,7 +10,7 @@ namespace MyLibrary.Models
         public int Id { get; set; }
         public string Text { get; set; }
 
-        public int BookInLibraryId;
+        public int BookInLibraryId { get; set; }
         public BookInLibrary BookInLibrary { get; set; }
     }
 }

@@ -12,11 +12,11 @@ namespace MyLibrary.Models
         public int BookId { get; set; }
         public Book Book { get; set; }
 
-        public int LibraryId { get; set; }
+        public string LibraryId { get; set; }
         public Library Library { get; set; }
 
-        public ICollection<Comment> Comments;
-        public ICollection<Reading> Readings;
-        public ICollection<Rental> Rentals;
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Reading> Readings { get; set; }
+        public ICollection<Rental> Rentals { get; set; }
     }
 }

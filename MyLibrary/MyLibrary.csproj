@@ -206,42 +206,63 @@
     <Compile Include="Migrations\201805011837328_InitialCreate.Designer.cs">
       <DependentUpon>201805011837328_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805031556003_FirstName.cs" />
-    <Compile Include="Migrations\201805031556003_FirstName.Designer.cs">
-      <DependentUpon>201805031556003_FirstName.cs</DependentUpon>
+    <Compile Include="Migrations\201805072127023_First.cs" />
+    <Compile Include="Migrations\201805072127023_First.Designer.cs">
+      <DependentUpon>201805072127023_First.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805031557111_SecondName.cs" />
-    <Compile Include="Migrations\201805031557111_SecondName.Designer.cs">
-      <DependentUpon>201805031557111_SecondName.cs</DependentUpon>
+    <Compile Include="Migrations\201805072127553_Friendship.cs" />
+    <Compile Include="Migrations\201805072127553_Friendship.Designer.cs">
+      <DependentUpon>201805072127553_Friendship.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805031844056_Books.cs" />
-    <Compile Include="Migrations\201805031844056_Books.Designer.cs">
-      <DependentUpon>201805031844056_Books.cs</DependentUpon>
+    <Compile Include="Migrations\201805072129117_Friendship_Start.cs" />
+    <Compile Include="Migrations\201805072129117_Friendship_Start.Designer.cs">
+      <DependentUpon>201805072129117_Friendship_Start.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805061854000_Library.cs" />
-    <Compile Include="Migrations\201805061854000_Library.Designer.cs">
-      <DependentUpon>201805061854000_Library.cs</DependentUpon>
+    <Compile Include="Migrations\201805072130051_Friendship_Start2.cs" />
+    <Compile Include="Migrations\201805072130051_Friendship_Start2.Designer.cs">
+      <DependentUpon>201805072130051_Friendship_Start2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805062000070_BookInLibrary.cs" />
-    <Compile Include="Migrations\201805062000070_BookInLibrary.Designer.cs">
-      <DependentUpon>201805062000070_BookInLibrary.cs</DependentUpon>
+    <Compile Include="Migrations\201805072134292_User.cs" />
+    <Compile Include="Migrations\201805072134292_User.Designer.cs">
+      <DependentUpon>201805072134292_User.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805062000534_Libraries.cs" />
-    <Compile Include="Migrations\201805062000534_Libraries.Designer.cs">
-      <DependentUpon>201805062000534_Libraries.cs</DependentUpon>
+    <Compile Include="Migrations\201805072135499_User2.cs" />
+    <Compile Include="Migrations\201805072135499_User2.Designer.cs">
+      <DependentUpon>201805072135499_User2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805062113104_Reading.cs" />
-    <Compile Include="Migrations\201805062113104_Reading.Designer.cs">
-      <DependentUpon>201805062113104_Reading.cs</DependentUpon>
+    <Compile Include="Migrations\201805072137408_User3.cs" />
+    <Compile Include="Migrations\201805072137408_User3.Designer.cs">
+      <DependentUpon>201805072137408_User3.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805062138380_OwnLibrary.cs" />
-    <Compile Include="Migrations\201805062138380_OwnLibrary.Designer.cs">
-      <DependentUpon>201805062138380_OwnLibrary.cs</DependentUpon>
+    <Compile Include="Migrations\201805072139311_User4.cs" />
+    <Compile Include="Migrations\201805072139311_User4.Designer.cs">
+      <DependentUpon>201805072139311_User4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805072146432_Friendship1.cs" />
+    <Compile Include="Migrations\201805072146432_Friendship1.Designer.cs">
+      <DependentUpon>201805072146432_Friendship1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805072147376_Friendship2.cs" />
+    <Compile Include="Migrations\201805072147376_Friendship2.Designer.cs">
+      <DependentUpon>201805072147376_Friendship2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805072149262_Friendship3.cs" />
+    <Compile Include="Migrations\201805072149262_Friendship3.Designer.cs">
+      <DependentUpon>201805072149262_Friendship3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805072150082_Friendship_Finally.cs" />
+    <Compile Include="Migrations\201805072150082_Friendship_Finally.Designer.cs">
+      <DependentUpon>201805072150082_Friendship_Finally.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805072208578_RentalExternal.cs" />
+    <Compile Include="Migrations\201805072208578_RentalExternal.Designer.cs">
+      <DependentUpon>201805072208578_RentalExternal.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookInLibrary.cs" />
+    <Compile Include="Models\RentalExternal.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Friendship.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -337,29 +358,44 @@
     <EmbeddedResource Include="Migrations\201805011837328_InitialCreate.resx">
       <DependentUpon>201805011837328_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805031556003_FirstName.resx">
-      <DependentUpon>201805031556003_FirstName.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805072127023_First.resx">
+      <DependentUpon>201805072127023_First.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805031557111_SecondName.resx">
-      <DependentUpon>201805031557111_SecondName.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805072127553_Friendship.resx">
+      <DependentUpon>201805072127553_Friendship.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805031844056_Books.resx">
-      <DependentUpon>201805031844056_Books.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805072129117_Friendship_Start.resx">
+      <DependentUpon>201805072129117_Friendship_Start.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805061854000_Library.resx">
-      <DependentUpon>201805061854000_Library.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805072130051_Friendship_Start2.resx">
+      <DependentUpon>201805072130051_Friendship_Start2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805062000070_BookInLibrary.resx">
-      <DependentUpon>201805062000070_BookInLibrary.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805072134292_User.resx">
+      <DependentUpon>201805072134292_User.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805062000534_Libraries.resx">
-      <DependentUpon>201805062000534_Libraries.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805072135499_User2.resx">
+      <DependentUpon>201805072135499_User2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805062113104_Reading.resx">
-      <DependentUpon>201805062113104_Reading.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805072137408_User3.resx">
+      <DependentUpon>201805072137408_User3.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805062138380_OwnLibrary.resx">
-      <DependentUpon>201805062138380_OwnLibrary.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805072139311_User4.resx">
+      <DependentUpon>201805072139311_User4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805072146432_Friendship1.resx">
+      <DependentUpon>201805072146432_Friendship1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805072147376_Friendship2.resx">
+      <DependentUpon>201805072147376_Friendship2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805072149262_Friendship3.resx">
+      <DependentUpon>201805072149262_Friendship3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805072150082_Friendship_Finally.resx">
+      <DependentUpon>201805072150082_Friendship_Finally.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805072208578_RentalExternal.resx">
+      <DependentUpon>201805072208578_RentalExternal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -16,7 +16,7 @@ namespace MyLibrary.Models
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
 
-        public int BookInLibraryId;
-        public BookInLibrary BookInLibrary;
+        public int BookInLibraryId { get; set; }
+        public BookInLibrary BookInLibrary { get; set; }
     }
 }
