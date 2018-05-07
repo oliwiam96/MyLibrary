@@ -218,11 +218,37 @@
     <Compile Include="Migrations\201805031844056_Books.Designer.cs">
       <DependentUpon>201805031844056_Books.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805061854000_Library.cs" />
+    <Compile Include="Migrations\201805061854000_Library.Designer.cs">
+      <DependentUpon>201805061854000_Library.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805062000070_BookInLibrary.cs" />
+    <Compile Include="Migrations\201805062000070_BookInLibrary.Designer.cs">
+      <DependentUpon>201805062000070_BookInLibrary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805062000534_Libraries.cs" />
+    <Compile Include="Migrations\201805062000534_Libraries.Designer.cs">
+      <DependentUpon>201805062000534_Libraries.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805062113104_Reading.cs" />
+    <Compile Include="Migrations\201805062113104_Reading.Designer.cs">
+      <DependentUpon>201805062113104_Reading.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805062138380_OwnLibrary.cs" />
+    <Compile Include="Migrations\201805062138380_OwnLibrary.Designer.cs">
+      <DependentUpon>201805062138380_OwnLibrary.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\BookInLibrary.cs" />
+    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\Friendship.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Library.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Reading.cs" />
+    <Compile Include="Models\Rental.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -319,6 +345,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805031844056_Books.resx">
       <DependentUpon>201805031844056_Books.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805061854000_Library.resx">
+      <DependentUpon>201805061854000_Library.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805062000070_BookInLibrary.resx">
+      <DependentUpon>201805062000070_BookInLibrary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805062000534_Libraries.resx">
+      <DependentUpon>201805062000534_Libraries.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805062113104_Reading.resx">
+      <DependentUpon>201805062113104_Reading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805062138380_OwnLibrary.resx">
+      <DependentUpon>201805062138380_OwnLibrary.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

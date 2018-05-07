@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -13,6 +15,14 @@ namespace MyLibrary.Models
 
         public string FirstName { get; set; }
         public string SecondName { get; set; }
+        
+        public int MyLibraryId { get; set; }
+        [ForeignKey("MyLibraryId")]
+        public virtual Library MyLibrary { get; set; }
+
+        public ICollection<Reading> Readings { get; set; }
+
+        //public ICollection<Library> Libraries { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

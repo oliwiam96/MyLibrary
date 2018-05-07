@@ -20,5 +20,7 @@ namespace MyLibrary.Models
 
         [Display(Name = "Link to a photo of a cover (url)")]
         public string UrlPhoto { get; set; }
+
+        public ICollection<BookInLibrary> BooksInLibrary;
     }
 }
