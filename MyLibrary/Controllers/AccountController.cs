@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MyLibrary.Models;
@@ -57,8 +58,24 @@ namespace MyLibrary.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            CheckDatabase();
             ViewBag.ReturnUrl = returnUrl;
             return View();
+        }
+
+        // delete users who haven't confirmed email for 24h
+        private void CheckDatabase()
+        {
+            //IdentityDbContext db = new IdentityDbContext();
+            DateTime before24Hours = DateTime.Now;
+            before24Hours = before24Hours.AddHours(-24);
+            var users = UserManager.Users.Where(c => c.RegistrationTime < before24Hours
+                                                        && !c.EmailConfirmed);
+           
+            foreach (var user in users.ToList())
+            {
+                UserManager.DeleteAsync(user);
+            }
         }
 
         //
@@ -168,7 +185,8 @@ namespace MyLibrary.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email,
-                                                FirstName = model.FirstName, SecondName = model.SecondName};
+                                                FirstName = model.FirstName, SecondName = model.SecondName,
+                                                   RegistrationTime = DateTime.Now};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

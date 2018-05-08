@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
@@ -15,6 +16,7 @@ namespace MyLibrary.Models
 
         public string FirstName { get; set; }
         public string SecondName { get; set; }
+        public DateTime RegistrationTime { get; set; }
         
         public int MyLibraryId { get; set; }
         [ForeignKey("MyLibraryId")]

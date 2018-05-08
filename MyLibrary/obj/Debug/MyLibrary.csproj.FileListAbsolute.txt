@@ -156,3 +156,4 @@ C:\Users\Oliwia\source\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.Migrations.
 C:\Users\Oliwia\source\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.Migrations.Friendship3.resources
 C:\Users\Oliwia\source\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.Migrations.Friendship_Finally.resources
 C:\Users\Oliwia\source\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.Migrations.RentalExternal.resources
+C:\Users\Oliwia\source\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.Migrations.RegistrationTime.resources

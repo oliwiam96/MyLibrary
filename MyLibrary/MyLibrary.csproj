@@ -258,6 +258,10 @@
     <Compile Include="Migrations\201805072208578_RentalExternal.Designer.cs">
       <DependentUpon>201805072208578_RentalExternal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805081211333_RegistrationTime.cs" />
+    <Compile Include="Migrations\201805081211333_RegistrationTime.Designer.cs">
+      <DependentUpon>201805081211333_RegistrationTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Book.cs" />
@@ -396,6 +400,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805072208578_RentalExternal.resx">
       <DependentUpon>201805072208578_RentalExternal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805081211333_RegistrationTime.resx">
+      <DependentUpon>201805081211333_RegistrationTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
