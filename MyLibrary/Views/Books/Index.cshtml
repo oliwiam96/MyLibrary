@@ -3,44 +3,72 @@
 @{
     ViewBag.Title = "Index";
 }
+@section Styles{
+    <link href="@Url.Content("~/Styles/Books/index.css")" rel="stylesheet" type="text/css" />
+}
 
 <h2>Index</h2>
+<p>
+    <i class="fa fa-pencil" aria-hidden="true"></i>
+    <i class="fa fa-address-book" aria-hidden="true"></i>
+    <i class="fa fa-book" aria-hidden="true"></i>
+</p>
 
 <p>
+
+    <span class="glyphicon glyphicon-book-search"></span>
+    <button type="button" class="btn btn-default">
+        <span class="glyphicons-book-search"></span> @Html.ActionLink("Create New Manually", "Create")
+    </button>
+    <button type="button" class="btn btn-default">
+        <span class="glyphicons-book-open"></span> Create New From Lubimyczytac.pl
+    </button>
     @Html.ActionLink("Create New Manually", "Create")
     @Html.ActionLink("Create New From Lubimyczytac.pl", "CreateExternal")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Author)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UrlPhoto)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author)
-        </td>
-        <td>
-            <img src="@item.UrlPhoto" alt="Cover of a book"/>
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+
+
+
+
+@{
+    var j = 0;
+    while (j < Model.Count())
+    {
+        <div class="row form-group">
+            @for (var k = 0; k < 4 && j < Model.Count(); k++)
+            {
+                <div class="col-md-3">
+                    <div class="thumbnail">
+                        <a href="@Model.ElementAt(j).UrlPhoto">
+                            <img class="img-responsive" src="@Model.ElementAt(j).UrlPhoto" alt="Cover of a book" />
+                            <div class="caption">
+                                <p>@Model.ElementAt(j).Title</p>
+                                <p>@Model.ElementAt(j).Author</p>
+                                <p>
+                                    @Html.ActionLink("Edit", "Edit", new { id = Model.ElementAt(j).Id }) |
+                                    @Html.ActionLink("Details", "Details", new { id = Model.ElementAt(j).Id }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = Model.ElementAt(j).Id })
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                j++;
+            }
+
+        </div>
+
+
+    }
 }
 
-</table>
+
+
+
+
+
+
+
+
+
