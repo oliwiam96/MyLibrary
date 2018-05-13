@@ -18,7 +18,7 @@ namespace MyLibrary.Models
         [StringLength(100, ErrorMessage = "Maximal length of the author of a book is 100 characters!")]
         public string Author { get; set; }
 
-        [Display(Name = "Link to a photo of a cover (url)")]
+        [Display(Name = "Photo of the cover")]
         public string UrlPhoto { get; set; }
 
         public ICollection<BookInLibrary> BooksInLibrary { get; set; }
