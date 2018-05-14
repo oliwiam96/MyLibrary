@@ -12,7 +12,7 @@ namespace MyLibrary.Models
         public int BookId { get; set; }
         public Book Book { get; set; }
 
-        public string LibraryId { get; set; }
+        public int LibraryId { get; set; }
         public Library Library { get; set; }
 
         public ICollection<Comment> Comments { get; set; }

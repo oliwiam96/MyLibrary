@@ -23,7 +23,7 @@ namespace MyLibrary.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -35,9 +35,9 @@ namespace MyLibrary.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -71,7 +71,7 @@ namespace MyLibrary.Controllers
             before24Hours = before24Hours.AddHours(-24);
             var users = UserManager.Users.Where(c => c.RegistrationTime < before24Hours
                                                         && !c.EmailConfirmed);
-           
+
             foreach (var user in users.ToList())
             {
                 UserManager.DeleteAsync(user);
@@ -153,7 +153,7 @@ namespace MyLibrary.Controllers
             // Jeśli użytkownik będzie wprowadzać niepoprawny kod przez określoną ilość czasu, konto użytkownika 
             // zostanie zablokowane na określoną ilość czasu. 
             // Możesz skonfigurować ustawienia blokady konta w elemencie IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -184,16 +184,34 @@ namespace MyLibrary.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email,
-                                                FirstName = model.FirstName, SecondName = model.SecondName,
-                                                   RegistrationTime = DateTime.Now};
+   
+
+
+                var user = new ApplicationUser
+                {
+                    UserName = model.UserName,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    SecondName = model.SecondName,
+                    RegistrationTime = DateTime.Now,
+                };
+
+                ApplicationDbContext db = new ApplicationDbContext();
+                var myLibrary = db.Libraries.Create();
+                myLibrary.UserId = user.Id;
+                db.Libraries.Add(myLibrary);
+                db.SaveChanges();
+
+                user.MyLibraryId = myLibrary.Id;
+
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
                     //  Comment the following line to prevent log in until the user is confirmed.
                     // (jak ponizsza linijka zakomentowana, to nie uzytkownik nie moze sie zalogowac poki nie potwierdzi adresu email)
                     //  await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // Aby uzyskać więcej informacji o sposobie włączania potwierdzania konta i resetowaniu hasła, odwiedź stronę https://go.microsoft.com/fwlink/?LinkID=320771
                     // Wyślij wiadomość e-mail z tym łączem
                     string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Potwierdź konto MyLibrary");

@@ -12,7 +12,7 @@ namespace MyLibrary.Models
         [Key, Column(Order = 0)]
         public string ApplicationUserId { get; set; }
         [Key, Column(Order = 1)]
-        public string LibraryId { get; set; }
+        public int LibraryId { get; set; }
 
         public virtual ApplicationUser ApplicationUser { get; set; }
         public virtual Library Library { get; set; }

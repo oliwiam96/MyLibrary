@@ -9,8 +9,10 @@ namespace MyLibrary.Models
 {
     public class Library
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, ForeignKey("User")]
-        public string Id { get; set; }
+        [Column("ID")]
+        public int Id { get; set; }
 
         public string UserId { get; set; }
         [ForeignKey("UserId")]
