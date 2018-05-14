@@ -17,10 +17,11 @@ namespace MyLibrary.Models
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public DateTime RegistrationTime { get; set; }
-        
-        public int MyLibraryId { get; set; }
-        [ForeignKey("MyLibraryId")]
-        public virtual Library MyLibrary { get; set; }
+
+        /* public string MyLibraryId { get; set; }
+         [ForeignKey("MyLibraryId")]
+         public virtual Library MyLibrary { get; set; }*/
+        public virtual Library Library { get; set; }
 
         public ICollection<Reading> Readings { get; set; }
 
@@ -56,10 +57,17 @@ namespace MyLibrary.Models
         public System.Data.Entity.DbSet<MyLibrary.Models.Comment> Comments { get; set; }
         public System.Data.Entity.DbSet<MyLibrary.Models.BookInLibrary> BooksInLibrary { get; set; }
         public System.Data.Entity.DbSet<MyLibrary.Models.Friendship> Friendships { get; set; }
-        public System.Data.Entity.DbSet<MyLibrary.Models.Library> Libraries { get; set; }
+        //public System.Data.Entity.DbSet<MyLibrary.Models.Library> Libraries { get; set; }
         public System.Data.Entity.DbSet<MyLibrary.Models.Reading> Readings { get; set; }
         public System.Data.Entity.DbSet<MyLibrary.Models.Rental> Rentals { get; set; }
         public System.Data.Entity.DbSet<MyLibrary.Models.RentalExternal> RentalsExternal { get; set; }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ApplicationUser>()
+                .HasOptional(c => c.Library)
+                .WithRequired(d => d.ApplicationUser);
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

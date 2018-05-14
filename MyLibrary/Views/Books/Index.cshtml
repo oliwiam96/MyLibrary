@@ -23,19 +23,22 @@
         <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
     </a>
 </p>
-@using (Html.BeginForm())
-{
-    <p>
-        Find by title: @Html.TextBox("SearchTitleString")
-    </p>
-    <p>
 
-        Find by author: @Html.TextBox("SearchAuthorString")
-    </p>
-    <p>
-        <input type="submit" value="Search" />
-    </p>
-}
+<form id="my_form">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
+        <input id="authorBook" type="text" class="form-control" name="SearchTitleString" placeholder="Find by title">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input id="titleBook" type="text" class="form-control" name="SearchAuthorString" placeholder="Find by author">
+    </div>
+    <div class="input-group">
+        <button type="submit" class="btn btn-default">Search</button>
+    </div>
+</form>
+
+
 
 @{
     var j = 0;

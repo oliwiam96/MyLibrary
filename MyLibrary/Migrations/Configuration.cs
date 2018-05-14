@@ -10,7 +10,6 @@ namespace MyLibrary.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "MyLibrary.Models.ApplicationDbContext";
         }
 
         protected override void Seed(MyLibrary.Models.ApplicationDbContext context)

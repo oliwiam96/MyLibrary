@@ -10,13 +10,14 @@ namespace MyLibrary.Models
     public class Library
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key, ForeignKey("User")]
-        [Column("ID")]
+        //[Key, ForeignKey("User")]
         public int Id { get; set; }
 
-        public string UserId { get; set; }
+        /*public string UserId { get; set; }
         [ForeignKey("UserId")]
-        public virtual ApplicationUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }*/
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
         public ICollection<BookInLibrary> BooksInLibrary { get; set; }
         public ICollection<Friendship> ApplicationUsers { get; set; } // przyjaciele, ktorych User zaprosil do swojej biblioteki

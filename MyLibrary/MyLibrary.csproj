@@ -208,81 +208,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805011837328_InitialCreate.cs" />
-    <Compile Include="Migrations\201805011837328_InitialCreate.Designer.cs">
-      <DependentUpon>201805011837328_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805072127023_First.cs" />
-    <Compile Include="Migrations\201805072127023_First.Designer.cs">
-      <DependentUpon>201805072127023_First.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805072127553_Friendship.cs" />
-    <Compile Include="Migrations\201805072127553_Friendship.Designer.cs">
-      <DependentUpon>201805072127553_Friendship.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805072129117_Friendship_Start.cs" />
-    <Compile Include="Migrations\201805072129117_Friendship_Start.Designer.cs">
-      <DependentUpon>201805072129117_Friendship_Start.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805072130051_Friendship_Start2.cs" />
-    <Compile Include="Migrations\201805072130051_Friendship_Start2.Designer.cs">
-      <DependentUpon>201805072130051_Friendship_Start2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805072134292_User.cs" />
-    <Compile Include="Migrations\201805072134292_User.Designer.cs">
-      <DependentUpon>201805072134292_User.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805072135499_User2.cs" />
-    <Compile Include="Migrations\201805072135499_User2.Designer.cs">
-      <DependentUpon>201805072135499_User2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805072137408_User3.cs" />
-    <Compile Include="Migrations\201805072137408_User3.Designer.cs">
-      <DependentUpon>201805072137408_User3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805072139311_User4.cs" />
-    <Compile Include="Migrations\201805072139311_User4.Designer.cs">
-      <DependentUpon>201805072139311_User4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805072146432_Friendship1.cs" />
-    <Compile Include="Migrations\201805072146432_Friendship1.Designer.cs">
-      <DependentUpon>201805072146432_Friendship1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805072147376_Friendship2.cs" />
-    <Compile Include="Migrations\201805072147376_Friendship2.Designer.cs">
-      <DependentUpon>201805072147376_Friendship2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805072149262_Friendship3.cs" />
-    <Compile Include="Migrations\201805072149262_Friendship3.Designer.cs">
-      <DependentUpon>201805072149262_Friendship3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805072150082_Friendship_Finally.cs" />
-    <Compile Include="Migrations\201805072150082_Friendship_Finally.Designer.cs">
-      <DependentUpon>201805072150082_Friendship_Finally.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805072208578_RentalExternal.cs" />
-    <Compile Include="Migrations\201805072208578_RentalExternal.Designer.cs">
-      <DependentUpon>201805072208578_RentalExternal.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805081211333_RegistrationTime.cs" />
-    <Compile Include="Migrations\201805081211333_RegistrationTime.Designer.cs">
-      <DependentUpon>201805081211333_RegistrationTime.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805142000057_IdStr.cs" />
-    <Compile Include="Migrations\201805142000057_IdStr.Designer.cs">
-      <DependentUpon>201805142000057_IdStr.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805142001061_IdStr1.cs" />
-    <Compile Include="Migrations\201805142001061_IdStr1.Designer.cs">
-      <DependentUpon>201805142001061_IdStr1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805142059308_IdAutoGenerateBook.cs" />
-    <Compile Include="Migrations\201805142059308_IdAutoGenerateBook.Designer.cs">
-      <DependentUpon>201805142059308_IdAutoGenerateBook.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805142102487_IdAutoGenerateBook2.cs" />
-    <Compile Include="Migrations\201805142102487_IdAutoGenerateBook2.Designer.cs">
-      <DependentUpon>201805142102487_IdAutoGenerateBook2.cs</DependentUpon>
+    <Compile Include="Migrations\201805142215245_Initial.cs" />
+    <Compile Include="Migrations\201805142215245_Initial.Designer.cs">
+      <DependentUpon>201805142215245_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -414,69 +342,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805011837328_InitialCreate.resx">
-      <DependentUpon>201805011837328_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805072127023_First.resx">
-      <DependentUpon>201805072127023_First.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805072127553_Friendship.resx">
-      <DependentUpon>201805072127553_Friendship.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805072129117_Friendship_Start.resx">
-      <DependentUpon>201805072129117_Friendship_Start.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805072130051_Friendship_Start2.resx">
-      <DependentUpon>201805072130051_Friendship_Start2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805072134292_User.resx">
-      <DependentUpon>201805072134292_User.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805072135499_User2.resx">
-      <DependentUpon>201805072135499_User2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805072137408_User3.resx">
-      <DependentUpon>201805072137408_User3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805072139311_User4.resx">
-      <DependentUpon>201805072139311_User4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805072146432_Friendship1.resx">
-      <DependentUpon>201805072146432_Friendship1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805072147376_Friendship2.resx">
-      <DependentUpon>201805072147376_Friendship2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805072149262_Friendship3.resx">
-      <DependentUpon>201805072149262_Friendship3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805072150082_Friendship_Finally.resx">
-      <DependentUpon>201805072150082_Friendship_Finally.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805072208578_RentalExternal.resx">
-      <DependentUpon>201805072208578_RentalExternal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805081211333_RegistrationTime.resx">
-      <DependentUpon>201805081211333_RegistrationTime.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805142000057_IdStr.resx">
-      <DependentUpon>201805142000057_IdStr.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805142001061_IdStr1.resx">
-      <DependentUpon>201805142001061_IdStr1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805142059308_IdAutoGenerateBook.resx">
-      <DependentUpon>201805142059308_IdAutoGenerateBook.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805142102487_IdAutoGenerateBook2.resx">
-      <DependentUpon>201805142102487_IdAutoGenerateBook2.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201805142215245_Initial.resx">
+      <DependentUpon>201805142215245_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -184,9 +184,7 @@ namespace MyLibrary.Controllers
         {
             if (ModelState.IsValid)
             {
-   
-
-
+                var myLibrary = new Library();
                 var user = new ApplicationUser
                 {
                     UserName = model.UserName,
@@ -194,15 +192,18 @@ namespace MyLibrary.Controllers
                     FirstName = model.FirstName,
                     SecondName = model.SecondName,
                     RegistrationTime = DateTime.Now,
+                    Library = myLibrary
                 };
+                
+                
 
-                ApplicationDbContext db = new ApplicationDbContext();
-                var myLibrary = db.Libraries.Create();
-                myLibrary.UserId = user.Id;
-                db.Libraries.Add(myLibrary);
-                db.SaveChanges();
+                /*  ApplicationDbContext db = new ApplicationDbContext();
+                  var myLibrary = db.Libraries.Create();
+                  myLibrary.UserId = user.Id;
+                  db.Libraries.Add(myLibrary);
+                  db.SaveChanges();
 
-                user.MyLibraryId = myLibrary.Id;
+                  user.MyLibraryId = myLibrary.Id; */
 
                 var result = await UserManager.CreateAsync(user, model.Password);
 
