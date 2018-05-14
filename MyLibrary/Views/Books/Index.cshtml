@@ -13,22 +13,16 @@
     <i class="fa fa-address-book" aria-hidden="true"></i>
     <i class="fa fa-book" aria-hidden="true"></i>
 </p>
-
 <p>
-
-    <span class="glyphicon glyphicon-book-search"></span>
-    <button type="button" class="btn btn-default">
-        <span class="glyphicons-book-search"></span> @Html.ActionLink("Create New Manually", "Create")
-    </button>
-    <button type="button" class="btn btn-default">
-        <span class="glyphicons-book-open"></span> Create New From Lubimyczytac.pl
-    </button>
-    @Html.ActionLink("Create New Manually", "Create")
-    @Html.ActionLink("Create New From Lubimyczytac.pl", "CreateExternal")
+    <a href="@Url.Action("Create")" class="btn btn-warning">
+        Create New Manually
+        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+    </a>
+    <a href="@Url.Action("CreateExternal")" class="btn btn-warning">
+        Create New From Lubimyczytac.pl
+        <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+    </a>
 </p>
-
-
-
 
 
 @{
@@ -42,16 +36,17 @@
                     <div class="thumbnail">
                         <a href="@Model.ElementAt(j).UrlPhoto">
                             <img class="img-responsive" src="@Model.ElementAt(j).UrlPhoto" alt="Cover of a book" />
-                            <div class="caption">
-                                <p>@Model.ElementAt(j).Title</p>
-                                <p>@Model.ElementAt(j).Author</p>
-                                <p>
-                                    @Html.ActionLink("Edit", "Edit", new { id = Model.ElementAt(j).Id }) |
-                                    @Html.ActionLink("Details", "Details", new { id = Model.ElementAt(j).Id }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = Model.ElementAt(j).Id })
-                                </p>
-                            </div>
                         </a>
+                        <div class="caption">
+                            <h3>@Model.ElementAt(j).Title</h3>
+                            <h4>@Model.ElementAt(j).Author</h4>
+                            <p>
+                                @Html.ActionLink("Edit", "Edit", new { id = Model.ElementAt(j).Id }) |
+                                @Html.ActionLink("Details", "Details", new { id = Model.ElementAt(j).Id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = Model.ElementAt(j).Id })
+                            </p>
+                        </div>
+
                     </div>
                 </div>
                 j++;
