@@ -23,7 +23,19 @@
         <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
     </a>
 </p>
+@using (Html.BeginForm())
+{
+    <p>
+        Find by title: @Html.TextBox("SearchTitleString")
+    </p>
+    <p>
 
+        Find by author: @Html.TextBox("SearchAuthorString")
+    </p>
+    <p>
+        <input type="submit" value="Search" />
+    </p>
+}
 
 @{
     var j = 0;

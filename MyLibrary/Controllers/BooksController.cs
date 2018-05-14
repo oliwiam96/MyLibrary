@@ -18,9 +18,19 @@ namespace MyLibrary.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Books
-        public ActionResult Index()
+        public ActionResult Index(string searchTitleString, string searchAuthorString)
         {
-            return View(db.Books.ToList());
+            var books = from b in db.Books
+                        select b;
+            if (!String.IsNullOrEmpty(searchTitleString))
+            {
+                books = books.Where(b => b.Title.Contains(searchTitleString));
+            }
+            if (!String.IsNullOrEmpty(searchAuthorString))
+            {
+                books = books.Where(b => b.Author.Contains(searchAuthorString));
+            }
+            return View(books.ToList());
         }
 
         // GET: Books/Details/5
