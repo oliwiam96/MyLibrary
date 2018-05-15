@@ -67,6 +67,7 @@ namespace MyLibrary.Controllers
 
             var currentUser = UserManager.FindById(User.Identity.GetUserId());
 
+
             var model = new IndexViewModel
             {
                 FirstName = currentUser.FirstName,

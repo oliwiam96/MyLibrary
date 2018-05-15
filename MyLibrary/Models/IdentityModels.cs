@@ -57,7 +57,7 @@ namespace MyLibrary.Models
         public System.Data.Entity.DbSet<MyLibrary.Models.Comment> Comments { get; set; }
         public System.Data.Entity.DbSet<MyLibrary.Models.BookInLibrary> BooksInLibrary { get; set; }
         public System.Data.Entity.DbSet<MyLibrary.Models.Friendship> Friendships { get; set; }
-        //public System.Data.Entity.DbSet<MyLibrary.Models.Library> Libraries { get; set; }
+        public System.Data.Entity.DbSet<MyLibrary.Models.Library> Libraries { get; set; }
         public System.Data.Entity.DbSet<MyLibrary.Models.Reading> Readings { get; set; }
         public System.Data.Entity.DbSet<MyLibrary.Models.Rental> Rentals { get; set; }
         public System.Data.Entity.DbSet<MyLibrary.Models.RentalExternal> RentalsExternal { get; set; }

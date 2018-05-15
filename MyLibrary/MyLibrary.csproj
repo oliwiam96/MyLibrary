@@ -202,8 +202,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BookInLibrariesController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LibrariesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -334,6 +336,16 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Libraries\Create.cshtml" />
+    <Content Include="Views\Libraries\Delete.cshtml" />
+    <Content Include="Views\Libraries\Details.cshtml" />
+    <Content Include="Views\Libraries\Edit.cshtml" />
+    <Content Include="Views\Libraries\Index.cshtml" />
+    <Content Include="Views\BookInLibraries\Create.cshtml" />
+    <Content Include="Views\BookInLibraries\Delete.cshtml" />
+    <Content Include="Views\BookInLibraries\Details.cshtml" />
+    <Content Include="Views\BookInLibraries\Edit.cshtml" />
+    <Content Include="Views\BookInLibraries\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

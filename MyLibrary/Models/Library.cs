@@ -17,7 +17,7 @@ namespace MyLibrary.Models
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }*/
 
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; } //wlasciciel
 
         public ICollection<BookInLibrary> BooksInLibrary { get; set; }
         public ICollection<Friendship> ApplicationUsers { get; set; } // przyjaciele, ktorych User zaprosil do swojej biblioteki
