@@ -7,17 +7,127 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MyLibrary.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace MyLibrary.Controllers
 {
+    [Authorize]
     public class LibrariesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db;
+        private UserManager<ApplicationUser> UserManager;
+
+        public LibrariesController()
+        {
+            db = new ApplicationDbContext();
+            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+        }
 
         // GET: Libraries
         public ActionResult Index()
         {
-            return View(db.Libraries.ToList());
+            /*var rental = new Rental
+            {
+                BookInLibraryId = 2,
+                StartOfRental= DateTime.Now,
+                EndOfRental = DateTime.Now,
+                Status="Zamknięty"
+            };
+            var rental2 = new Rental
+            {
+                BookInLibraryId = 3,
+                StartOfRental = DateTime.Now,
+                EndOfRental = DateTime.Now,
+                Status = "Otwarty"
+            };
+            var rental3 = new Rental
+            {
+                BookInLibraryId = 4,
+                StartOfRental = DateTime.Now,
+                EndOfRental = DateTime.Now,
+                Status = "Zamknięty"
+            };
+            var rental4 = new Rental
+            {
+                BookInLibraryId = 4,
+                StartOfRental = DateTime.Now,
+                EndOfRental = DateTime.Now,
+                Status = "Otwarty"
+            };
+
+            db.Rentals.Add(rental);
+            db.Rentals.Add(rental2);
+            db.Rentals.Add(rental3);
+            db.Rentals.Add(rental4);
+
+            db.SaveChanges();*/
+
+
+            var myId = User.Identity.GetUserId();
+            /*var user = UserManager.Users
+                .Include(x => x.Library.BookInLibrary.Select(b => b.Book))
+                .SingleOrDefault(x => x.Id == myId);*/
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            /*
+            var rental4 = new Rental
+            {
+                BookInLibraryId = 7,
+                StartOfRental = DateTime.Now,
+                EndOfRental = DateTime.Now,
+                Status = "Otwarty",
+                UserTo = user
+            };
+            var rental5 = new Rental
+            {
+                BookInLibraryId = 8,
+                StartOfRental = DateTime.Now,
+                EndOfRental = DateTime.Now,
+                Status = "Zamknięty",
+                UserTo = user
+            };
+            db.Rentals.Add(rental4);
+            db.Rentals.Add(rental5);
+            db.SaveChanges();
+            */
+            var library = user.Library;
+            //var bookInLibraryCurrent = db.BooksInLibrary.Where(b => (b.LibraryId == library.Id) && (1==1));
+            var bookInLibraryCurrent = db.BooksInLibrary.Where(b => (b.LibraryId == library.Id) && (b.Rentals.All(r => r.Status != "Otwarty")));
+            var bookInLibraryOutside = db.BooksInLibrary.Where(b => (b.LibraryId == library.Id) && (b.Rentals.Any(r => r.Status == "Otwarty")));
+            var bookInLibraryInside = db.BooksInLibrary.Where(b => b.Rentals.Any(r => (r.Status == "Otwarty") && (r.UserToId == user.Id)));
+
+            /*
+             * SELECT * FROM BOOKSINLIBRARY
+             * WHERE LIBRARYID == LIBRARY.ID 
+             * AND ALL(Rentals.Status != "Otwarty")
+             * */
+
+            /*
+             * SELECT * FROM BOOKSINLIBRARY
+             * WHERE LIBRARYID == LIBRARY.ID 
+             * AND LIBRARY ID (NOT) IN
+             *  (SELECT BookInLibraryId FROM RENTAL
+             *    WHERE RENTAL.BookInLibrary.LibraryId == LIBRARY.ID 
+             *    AND RENTAL.Status == 'W trakcie');
+             * */
+
+            var modelViewLibrary = new LibraryViewModel
+            {
+                Library = library,
+                BookInLibraryCurrent = bookInLibraryCurrent.ToList(),
+                BookInLibraryRentalOutside = bookInLibraryOutside.ToList(),
+                BookInLibraryRentalInside = bookInLibraryInside.ToList()
+
+            };
+            //ICollection<BookInLibrary> books = library.BookInLibrary;
+
+
+            return View(modelViewLibrary);
         }
 
         // GET: Libraries/Details/5

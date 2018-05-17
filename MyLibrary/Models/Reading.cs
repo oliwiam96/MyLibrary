@@ -17,6 +17,6 @@ namespace MyLibrary.Models
         public virtual ApplicationUser User { get; set; }
 
         public int BookInLibraryId { get; set; }
-        public BookInLibrary BookInLibrary { get; set; }
+        public virtual BookInLibrary BookInLibrary { get; set; }
     }
 }

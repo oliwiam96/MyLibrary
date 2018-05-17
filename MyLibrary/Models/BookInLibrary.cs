@@ -10,13 +10,13 @@ namespace MyLibrary.Models
         public int Id { get; set; }
 
         public int BookId { get; set; }
-        public Book Book { get; set; }
+        public virtual Book Book { get; set; }
 
         public int LibraryId { get; set; }
-        public Library Library { get; set; }
+        public virtual Library Library { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
-        public ICollection<Reading> Readings { get; set; }
-        public ICollection<Rental> Rentals { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Reading> Readings { get; set; }
+        public virtual ICollection<Rental> Rentals { get; set; }
     }
 }

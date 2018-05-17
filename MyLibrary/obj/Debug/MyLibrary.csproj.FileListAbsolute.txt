@@ -303,3 +303,5 @@ E:\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.pdb
 E:\repos\MyLibrary\MyLibrary\bin\WebActivatorEx.dll
 E:\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.Migrations.Initial.resources
 E:\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.csproj.GenerateResource.cache
+E:\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.Migrations.library.resources
+E:\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.Migrations.library2.resources

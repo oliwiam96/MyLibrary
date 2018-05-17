@@ -11,6 +11,6 @@ namespace MyLibrary.Models
         public string Text { get; set; }
 
         public int BookInLibraryId { get; set; }
-        public BookInLibrary BookInLibrary { get; set; }
+        public virtual BookInLibrary BookInLibrary { get; set; }
     }
 }

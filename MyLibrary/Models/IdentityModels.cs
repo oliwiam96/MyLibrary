@@ -23,14 +23,15 @@ namespace MyLibrary.Models
          public virtual Library MyLibrary { get; set; }*/
         public virtual Library Library { get; set; }
 
-        public ICollection<Reading> Readings { get; set; }
+        public virtual ICollection<Reading> Readings { get; set; }
 
-        public ICollection<Friendship> Libraries { get; set; } // biblioteki, do ktorych mnie zaproszono
+        public virtual ICollection<Friendship> Libraries { get; set; } // biblioteki, do ktorych mnie zaproszono
 
-        public ICollection<Rental> Rentals { get; set; } //ksiazki, ktore ja pozyczylem od kogos
+        public virtual ICollection<Rental> Rentals { get; set; } //ksiazki, ktore ja pozyczylem od kogos
+        //TODO!!! czy to potrzebne, skoro jest user.Library.BookInLibraries.Rentals!!! TODO
         // info o pozyczonych komus sa w ksiazkach w mojej bibliotece
 
-        public ICollection<Rental> RentalsExternal { get; set; } //ksiazki, ktore ja pozyczylem od kogos spoza systemu
+        public virtual ICollection<Rental> RentalsExternal { get; set; } //ksiazki, ktore ja pozyczylem od kogos spoza systemu
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -44,8 +45,10 @@ namespace MyLibrary.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("DefaultConnection")
         {
+            Configuration.LazyLoadingEnabled = true;
+            Configuration.ProxyCreationEnabled = true;
         }
 
         public static ApplicationDbContext Create()
@@ -68,6 +71,11 @@ namespace MyLibrary.Models
                 .HasOptional(c => c.Library)
                 .WithRequired(d => d.ApplicationUser);
             base.OnModelCreating(modelBuilder);
+
+            /*modelBuilder.Entity<Library>()
+                .HasMany<BookInLibrary>(l => l.BookInLibrary)
+                .WithRequired(b => b.Library)
+                .HasForeignKey<int>(l => l.LibraryId);*/
         }
     }
 }

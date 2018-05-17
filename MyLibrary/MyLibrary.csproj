@@ -214,10 +214,19 @@
     <Compile Include="Migrations\201805142215245_Initial.Designer.cs">
       <DependentUpon>201805142215245_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805151956351_library.cs" />
+    <Compile Include="Migrations\201805151956351_library.Designer.cs">
+      <DependentUpon>201805151956351_library.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805152009549_library2.cs" />
+    <Compile Include="Migrations\201805152009549_library2.Designer.cs">
+      <DependentUpon>201805152009549_library2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookInLibrary.cs" />
+    <Compile Include="Models\LibraryViewModel.cs" />
     <Compile Include="Models\RentalExternal.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Friendship.cs" />
@@ -362,6 +371,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201805142215245_Initial.resx">
       <DependentUpon>201805142215245_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805151956351_library.resx">
+      <DependentUpon>201805151956351_library.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805152009549_library2.resx">
+      <DependentUpon>201805152009549_library2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

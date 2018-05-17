@@ -19,8 +19,8 @@ namespace MyLibrary.Models
 
         public virtual ApplicationUser ApplicationUser { get; set; } //wlasciciel
 
-        public ICollection<BookInLibrary> BooksInLibrary { get; set; }
-        public ICollection<Friendship> ApplicationUsers { get; set; } // przyjaciele, ktorych User zaprosil do swojej biblioteki
+        public virtual ICollection<BookInLibrary> BookInLibrary { get; set; }
+        public virtual ICollection<Friendship> ApplicationUsers { get; set; } // przyjaciele, ktorych User zaprosil do swojej biblioteki
 
     }
 }

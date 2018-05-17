@@ -21,6 +21,6 @@ namespace MyLibrary.Models
         [Display(Name = "Photo of the cover")]
         public string UrlPhoto { get; set; }
 
-        public ICollection<BookInLibrary> BooksInLibrary { get; set; }
+        public virtual ICollection<BookInLibrary> BooksInLibrary { get; set; }
     }
 }

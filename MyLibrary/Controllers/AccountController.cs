@@ -59,6 +59,7 @@ namespace MyLibrary.Controllers
         public ActionResult Login(string returnUrl)
         {
             CheckDatabase();
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
