@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using MyLibrary.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System.Data.Entity;
+
 
 namespace MyLibrary.Controllers
 {

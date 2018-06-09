@@ -4,3 +4,7 @@
 .input-group {
     margin-bottom: 5px;
 }
+
+#boldH3 {
+    font-weight: bold;
+}
