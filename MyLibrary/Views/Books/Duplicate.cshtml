@@ -1,0 +1,25 @@
+﻿@model MyLibrary.Models.Book
+
+@{
+    ViewBag.Title = "Duplicate";
+}
+
+<h2>Wykryto duplikat</h2>
+<p>Przepraszamy, ale książka o podanym autorze i tytule istnieje już w naszej bazie!</p>
+
+<h3>
+    Dane o wykrytej książce
+</h3>
+<div class="thumbnail">
+    <a href="@Model.UrlPhoto">
+        <img class="img-responsive" src="@Model.UrlPhoto" alt="Cover of a book" />
+    </a>
+    <div class="caption">
+        <h3><span id="boldH3">@Model.Title</span></h3>
+        <h4>@Model.Author</h4>
+    </div>
+</div>
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

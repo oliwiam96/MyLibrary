@@ -33,6 +33,12 @@ namespace MyLibrary.Controllers
             return View(books.ToList());
         }
 
+        // GET: Books/Duplicate
+        public ActionResult Duplicate([Bind(Include = "Id,Title,Author,UrlPhoto")] Book book)
+        {
+            return View(book);
+        }
+
         // GET: Books/Details/5
         public ActionResult Details(int? id)
         {
@@ -61,12 +67,20 @@ namespace MyLibrary.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Title,Author,UrlPhoto")] Book book)
         {
-            // TODO check for duplicate
+            // check for duplicates - it is a duplicate when author and title are the same
             if (ModelState.IsValid)
             {
-                db.Books.Add(book);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var theSame = db.Books.Where(b => (b.Author == book.Author && b.Title == book.Title)).FirstOrDefault();
+                if(theSame != null)
+                {
+                    return RedirectToAction("Duplicate", book);
+                }
+                else
+                {
+                    db.Books.Add(book);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
 
             return View(book);
