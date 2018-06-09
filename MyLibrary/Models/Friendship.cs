@@ -10,6 +10,7 @@ namespace MyLibrary.Models
     public class Friendship
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         //[Key, Column(Order = 0)]add

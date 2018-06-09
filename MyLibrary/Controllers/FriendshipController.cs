@@ -53,8 +53,44 @@ namespace MyLibrary.Controllers
 
         }
 
+        // TODO nie dodawaj jako czlonek wlasnej bibilioteki
+
+
         public ActionResult WelcomeFriendToLibrary(string token)
         {
+            var db = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+            var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+            var user = UserManager.FindById(User.Identity.GetUserId());
+
+            var friendship = db.Friendships.Where(f => f.Token == token).FirstOrDefault();
+            if (friendship != null)
+            {
+                friendship.ApplicationUser = user;
+                db.Entry(friendship).State = EntityState.Modified;
+
+                db.SaveChanges();
+
+                var duplicates = db.Friendships.Count(f => (f.LibraryId == friendship.LibraryId) && f.ApplicationUserId == friendship.ApplicationUserId);
+                if(duplicates > 1)
+                {
+                    var list = db.Friendships.Where(f => (f.LibraryId == friendship.LibraryId) && f.ApplicationUserId == friendship.ApplicationUserId).OrderByDescending(f => f.StartOfFriendship);
+                    var toRemove = list.First();
+                    db.Friendships.Remove(toRemove);
+                    db.SaveChanges();
+                    ViewBag.Title = "Duplikat zaproszenia";
+                    ViewBag.Message = "Już byłeś członkiem tej biblioteki.";
+
+                }
+                else
+                {
+                    ViewBag.Title = "Akceptacja zaproszenia";
+                    ViewBag.Message = "Nastąpiła akcpetacja zaproszenia do biblioteki od użytkownika " + friendship.Library.ApplicationUser.UserName;
+                }
+
+
+                
+            }
             return View("Info");
         }
 
@@ -65,6 +101,9 @@ namespace MyLibrary.Controllers
 
             var user = UserManager.FindById(User.Identity.GetUserId());
             string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+
+           
+
             var callbackUrl = Url.Action("WelcomeFriendToLibrary", "Friendship",
                    new { token }, protocol: Request.Url.Scheme);
             string emailText = "Użytkownik " + user.FirstName + " " + user.SecondName
@@ -72,6 +111,14 @@ namespace MyLibrary.Controllers
                 + callbackUrl + "\">tutaj</a>, by uzyskać dostęp.";
             string subject = "[MyLibrary] Zaproszenie do biblioteki od użytkownika " + user.UserName;
             await UserManager.SendEmailAsync(user.Id, subject, emailText);
+
+            var friendship = db.Friendships.Create();
+            friendship.Library = user.Library;
+            friendship.Token = token;
+            friendship.StartOfFriendship = DateTime.Now;
+            db.Friendships.Add(friendship);
+            db.SaveChanges();
+
 
         }
     }
