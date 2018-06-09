@@ -195,7 +195,6 @@ namespace MyLibrary.Controllers
                     RegistrationTime = DateTime.Now,
                 };
 
-
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 var context = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
@@ -467,6 +466,11 @@ namespace MyLibrary.Controllers
         {
             if (disposing)
             {
+                if (_userManager != null)
+                {
+                    _userManager.Dispose();
+                    _userManager = null;
+                }
 
                 if (_signInManager != null)
                 {

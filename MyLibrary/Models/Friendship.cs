@@ -9,9 +9,12 @@ namespace MyLibrary.Models
 {
     public class Friendship
     {
-        [Key, Column(Order = 0)]
+        [Key]
+        public int Id { get; set; }
+
+        //[Key, Column(Order = 0)]add
         public string ApplicationUserId { get; set; }
-        [Key, Column(Order = 1)]
+        //[Key, Column(Order = 1)]
         public int LibraryId { get; set; }
 
         public string Token { get; set; }

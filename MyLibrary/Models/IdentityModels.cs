@@ -25,7 +25,7 @@ namespace MyLibrary.Models
 
         public virtual ICollection<Reading> Readings { get; set; }
 
-        public virtual ICollection<Friendship> Libraries { get; set; } // biblioteki, do ktorych mnie zaproszono
+        public virtual ICollection<Friendship> Friendships{ get; set; } // biblioteki, do ktorych mnie zaproszono
 
         public virtual ICollection<Rental> Rentals { get; set; } //ksiazki, ktore ja pozyczylem od kogos
         //TODO!!! czy to potrzebne, skoro jest user.Library.BookInLibraries.Rentals!!! TODO

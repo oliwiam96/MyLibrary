@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Invite";
+}
+
+<h3>Zaproś użytkowników do swojej biblioteki</h3>
+<p>Podaj adres e-mail osoby, którą chcesz zaprosić do swojej biblioteki. Na jej adres e-mail zostanie wysłany link z zaproszeniem.</p>
+<p>Jeśli osoba, której wysyłasz zaproszenie, jeszcze nie ma konta w serwisie, będzie musiała je założyć.</p>
+
+<form class="form-inline" method="post" action="@Url.Action("Invite", "Friendship")">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+        <input id="titleBook" type="email" class="form-control" name="Email" placeholder="Adres e-mail">
+    </div>
+    <div class="input-group">
+        <button type="submit" value="Invite" class="btn btn-default">Zaproś</button>
+    </div>
+
+</form>
+
+
