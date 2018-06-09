@@ -61,6 +61,7 @@ namespace MyLibrary.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Title,Author,UrlPhoto")] Book book)
         {
+            // TODO check for duplicate
             if (ModelState.IsValid)
             {
                 db.Books.Add(book);
