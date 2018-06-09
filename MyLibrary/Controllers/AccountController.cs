@@ -53,6 +53,7 @@ namespace MyLibrary.Controllers
             }
         }
 
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -185,7 +186,6 @@ namespace MyLibrary.Controllers
         {
             if (ModelState.IsValid)
             {
-                var myLibrary = new Library();
                 var user = new ApplicationUser
                 {
                     UserName = model.UserName,
@@ -193,20 +193,17 @@ namespace MyLibrary.Controllers
                     FirstName = model.FirstName,
                     SecondName = model.SecondName,
                     RegistrationTime = DateTime.Now,
-                    Library = myLibrary
                 };
-                
-                
 
-                /*  ApplicationDbContext db = new ApplicationDbContext();
-                  var myLibrary = db.Libraries.Create();
-                  myLibrary.UserId = user.Id;
-                  db.Libraries.Add(myLibrary);
-                  db.SaveChanges();
-
-                  user.MyLibraryId = myLibrary.Id; */
 
                 var result = await UserManager.CreateAsync(user, model.Password);
+
+                var context = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+                var myLibrary = context.Libraries.Create();
+                myLibrary.ApplicationUser = user;
+                context.Libraries.Add(myLibrary);
+                context.SaveChanges();
+
 
                 if (result.Succeeded)
                 {
@@ -470,11 +467,6 @@ namespace MyLibrary.Controllers
         {
             if (disposing)
             {
-                if (_userManager != null)
-                {
-                    _userManager.Dispose();
-                    _userManager = null;
-                }
 
                 if (_signInManager != null)
                 {

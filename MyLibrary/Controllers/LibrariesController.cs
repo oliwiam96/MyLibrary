@@ -25,6 +25,7 @@ namespace MyLibrary.Controllers
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
         }
 
+
         // GET: Libraries
         public ActionResult Index()
         {

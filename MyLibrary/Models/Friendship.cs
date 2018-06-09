@@ -14,6 +14,8 @@ namespace MyLibrary.Models
         [Key, Column(Order = 1)]
         public int LibraryId { get; set; }
 
+        public string Token { get; set; }
+
         public virtual ApplicationUser ApplicationUser { get; set; }
         public virtual Library Library { get; set; }
 
