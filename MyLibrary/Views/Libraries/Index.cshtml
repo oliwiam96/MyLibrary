@@ -33,8 +33,9 @@
                                         <h3>@Model.BookInLibraryCurrent.ElementAt(jj).Book.Title</h3>
                                         <h4>@Model.BookInLibraryCurrent.ElementAt(jj).Book.Author</h4>
                                         <p>
-                                            @Html.ActionLink("Szczegóły", "Details", new { id = Model.BookInLibraryCurrent.ElementAt(jj).Book.Id }) |
-                                            @Html.ActionLink("Usuń", "Delete", new { id = Model.BookInLibraryCurrent.ElementAt(jj).Book.Id })
+                                            @Html.ActionLink("Szczegóły", "Details", "BookInLibraries", new { id = Model.BookInLibraryCurrent.ElementAt(jj).Book.Id }) |
+                                            @Html.ActionLink("Usuń", "DeleteBookFromLibrary",
+                                                "BookInLibraries", new { id = Model.BookInLibraryCurrent.ElementAt(jj).Id }, null)
                                         </p>
                                     </div>
 

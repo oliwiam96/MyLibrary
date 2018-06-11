@@ -15,6 +15,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace MyLibrary.Controllers
 {
+    [Authorize]
     public class StatisticsController : Controller
     {
         // GET: Statistics

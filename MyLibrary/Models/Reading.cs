@@ -10,7 +10,7 @@ namespace MyLibrary.Models
     {
         public int Id { get; set; }
         public DateTime StartOfReading { get; set; }
-        public DateTime EndOfReading { get; set; }
+        public DateTime? EndOfReading { get; set; }
 
         public string UserId { get; set; }
         [ForeignKey("UserId")]

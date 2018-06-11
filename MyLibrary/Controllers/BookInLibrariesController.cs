@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using MyLibrary.Models;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace MyLibrary.Controllers
 {
@@ -24,13 +25,14 @@ namespace MyLibrary.Controllers
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
         }
 
+        // TODO usun
         // GET: BookInLibraries
         public ActionResult Index()
         {
             var booksInLibrary = db.BooksInLibrary.Include(b => b.Book).Include(b => b.Library);
             return View(booksInLibrary.ToList());
         }
-
+        // TODO napraw
         // GET: BookInLibraries/Details/5
         public ActionResult Details(int? id)
         {
@@ -44,6 +46,31 @@ namespace MyLibrary.Controllers
                 return HttpNotFound();
             }
             return View(bookInLibrary);
+        }
+
+
+        // GET: BookInLibraries/DeleteBookFromLibrary/3
+        // id is the id of a BookInLibrary
+        // deletes only if book is in a library of logged user
+        public ActionResult DeleteBookFromLibrary(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BookInLibrary bookInLibrary = db.BooksInLibrary.Find(id);
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (bookInLibrary == null || user == null)
+            {
+                return HttpNotFound();
+            }
+            
+            if(user.Id == bookInLibrary.Library.ApplicationUser.Id) // deletes only if book is in a library of logged user
+            {
+                db.BooksInLibrary.Remove(bookInLibrary);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index", "Libraries");
         }
 
 
@@ -81,6 +108,7 @@ namespace MyLibrary.Controllers
             return RedirectToAction("Index", "Books");
         }
 
+        // TODO usun
         // GET: BookInLibraries/Create
         public ActionResult Create()
         {
@@ -89,6 +117,7 @@ namespace MyLibrary.Controllers
             return View();
         }
 
+        // TOOD usun
         // POST: BookInLibraries/Create
         // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -108,6 +137,7 @@ namespace MyLibrary.Controllers
             return View(bookInLibrary);
         }
 
+        // TODO usun
         // GET: BookInLibraries/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -125,6 +155,7 @@ namespace MyLibrary.Controllers
             return View(bookInLibrary);
         }
 
+        // TODO usun
         // POST: BookInLibraries/Edit/5
         // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
