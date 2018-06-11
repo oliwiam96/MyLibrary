@@ -27,7 +27,7 @@ namespace MyLibrary.Controllers
 
 
         // GET: Libraries
-        public ActionResult Index()
+        public ActionResult Index(string searchTitleString, string searchAuthorString)
         {
             /*var rental = new Rental
             {
@@ -102,20 +102,19 @@ namespace MyLibrary.Controllers
             var bookInLibraryOutside = db.BooksInLibrary.Where(b => (b.LibraryId == library.Id) && (b.Rentals.Any(r => r.Status == "Otwarty")));
             var bookInLibraryInside = db.BooksInLibrary.Where(b => b.Rentals.Any(r => (r.Status == "Otwarty") && (r.UserToId == user.Id)));
 
-            /*
-             * SELECT * FROM BOOKSINLIBRARY
-             * WHERE LIBRARYID == LIBRARY.ID 
-             * AND ALL(Rentals.Status != "Otwarty")
-             * */
+            if (!String.IsNullOrEmpty(searchTitleString))
+            {
+                bookInLibraryCurrent = bookInLibraryCurrent.Where(b => b.Book.Title.Contains(searchTitleString));
+                bookInLibraryOutside = bookInLibraryOutside.Where(b => b.Book.Title.Contains(searchTitleString));
+                bookInLibraryInside = bookInLibraryInside.Where(b => b.Book.Title.Contains(searchTitleString));
+            }
+            if (!String.IsNullOrEmpty(searchAuthorString))
+            {
+                bookInLibraryCurrent = bookInLibraryCurrent.Where(b => b.Book.Author.Contains(searchAuthorString));
+                bookInLibraryOutside = bookInLibraryOutside.Where(b => b.Book.Author.Contains(searchAuthorString));
+                bookInLibraryInside = bookInLibraryInside.Where(b => b.Book.Author.Contains(searchAuthorString));
+            }
 
-            /*
-             * SELECT * FROM BOOKSINLIBRARY
-             * WHERE LIBRARYID == LIBRARY.ID 
-             * AND LIBRARY ID (NOT) IN
-             *  (SELECT BookInLibraryId FROM RENTAL
-             *    WHERE RENTAL.BookInLibrary.LibraryId == LIBRARY.ID 
-             *    AND RENTAL.Status == 'W trakcie');
-             * */
 
             var modelViewLibrary = new LibraryViewModel
             {

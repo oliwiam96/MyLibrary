@@ -32,7 +32,7 @@ namespace MyLibrary.Controllers
             var booksInLibrary = db.BooksInLibrary.Include(b => b.Book).Include(b => b.Library);
             return View(booksInLibrary.ToList());
         }
-        // TODO napraw
+        // TODO usun
         // GET: BookInLibraries/Details/5
         public ActionResult Details(int? id)
         {
@@ -46,6 +46,25 @@ namespace MyLibrary.Controllers
                 return HttpNotFound();
             }
             return View(bookInLibrary);
+        }
+
+        // GET: BookInLibraries/More/3
+        // id is the id of a BookInLibrary
+        public ActionResult More(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BookInLibrary bookInLibrary = db.BooksInLibrary.Find(id);
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (bookInLibrary == null || user == null)
+            {
+                return HttpNotFound();
+            }
+            // TODO TERAZ OLI
+            return View();
+
         }
 
 
