@@ -244,6 +244,7 @@ E:\repos\MyLibrary\MyLibrary\bin\System.Web.Razor.dll
 E:\repos\MyLibrary\MyLibrary\bin\System.Web.WebPages.Deployment.dll
 E:\repos\MyLibrary\MyLibrary\bin\System.Web.WebPages.dll
 E:\repos\MyLibrary\MyLibrary\bin\System.Web.WebPages.Razor.dll
+E:\repos\MyLibrary\MyLibrary\bin\WebActivatorEx.dll
 E:\repos\MyLibrary\MyLibrary\bin\WebGrease.dll
 E:\repos\MyLibrary\MyLibrary\bin\HtmlAgilityPack.pdb
 E:\repos\MyLibrary\MyLibrary\bin\HtmlAgilityPack.xml
@@ -295,13 +296,10 @@ E:\repos\MyLibrary\MyLibrary\bin\pl\Microsoft.Owin.Security.Facebook.resources.d
 E:\repos\MyLibrary\MyLibrary\bin\pl\Microsoft.Owin.Security.Google.resources.dll
 E:\repos\MyLibrary\MyLibrary\bin\pl\Microsoft.Owin.Security.Twitter.resources.dll
 E:\repos\MyLibrary\MyLibrary\bin\pl\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
-E:\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.csprojResolveAssemblyReference.cache
 E:\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.csproj.CoreCompileInputs.cache
 E:\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.csproj.CopyComplete
 E:\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.dll
 E:\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.pdb
-E:\repos\MyLibrary\MyLibrary\bin\WebActivatorEx.dll
-E:\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.Migrations.Initial.resources
+E:\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.csprojResolveAssemblyReference.cache
+E:\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.Migrations.init.resources
 E:\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.csproj.GenerateResource.cache
-E:\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.Migrations.library.resources
-E:\repos\MyLibrary\MyLibrary\obj\Debug\MyLibrary.Migrations.library2.resources

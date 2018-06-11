@@ -39,6 +39,7 @@ namespace MyLibrary
             smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
             smtpClient.EnableSsl = true;
 
+
             //smtpClient.Send(message);
             
             using (smtpClient)
