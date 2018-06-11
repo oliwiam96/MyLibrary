@@ -4,8 +4,8 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-<p>Właścicel: @Model.Library.ApplicationUser.UserName</p>
+<h2>Biblioteczka</h2>
+<h3>Właścicel: @Model.Library.ApplicationUser.UserName</h3>
 
 
 <div class="panel panel-default">
@@ -33,9 +33,11 @@
                                         <h3>@Model.BookInLibraryCurrent.ElementAt(jj).Book.Title</h3>
                                         <h4>@Model.BookInLibraryCurrent.ElementAt(jj).Book.Author</h4>
                                         <p>
-                                            @Html.ActionLink("Szczegóły", "Details", "BookInLibraries", new { id = Model.BookInLibraryCurrent.ElementAt(jj).Book.Id }) |
-                                            @Html.ActionLink("Usuń", "DeleteBookFromLibrary",
-                                                "BookInLibraries", new { id = Model.BookInLibraryCurrent.ElementAt(jj).Id }, null)
+                                            @Html.ActionLink("Więcej", "More",
+                                                "BookInLibraries", new { id = Model.BookInLibraryCurrent.ElementAt(jj).Id }, null) |
+                                             @Html.ActionLink("Usuń", "DeleteBookFromLibrary",
+                                                "BookInLibraries", new { id = Model.BookInLibraryCurrent.ElementAt(jj).Id },
+                                                new { onclick = "return confirm('Czy na pewno chcesz usunąć tę pozycję?');" })
                                         </p>
                                     </div>
 
