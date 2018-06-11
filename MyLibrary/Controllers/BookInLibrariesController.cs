@@ -62,8 +62,19 @@ namespace MyLibrary.Controllers
             {
                 return HttpNotFound();
             }
+
+            var bookInLibraryViewModel = new BookInLibraryViewModel
+            {
+                BookInLibrary = bookInLibrary,
+                IsCurrentlyReadByMe = false,
+                IsCurrentlyReadBySbElse = false,
+                OtherReaderName = "elo",
+
+                Users = new SelectList(db.Users, "Id", "UserName")
+
+        };
             // TODO TERAZ OLI
-            return View();
+            return View(bookInLibraryViewModel);
 
         }
 

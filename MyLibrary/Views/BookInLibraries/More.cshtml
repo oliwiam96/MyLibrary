@@ -1,0 +1,70 @@
+﻿@model MyLibrary.Models.BookInLibraryViewModel
+@{
+    ViewBag.Title = "Książka w bibliotece";
+}
+@section Styles{
+    <link href="@Url.Content("~/Styles/Books/index.css")" rel="stylesheet" type="text/css" />
+}
+
+<h2>Książka w bibibliotece</h2>
+<div class="media">
+    <div class="thumbnail">
+        <div class="media-left">
+            <img class="media-object" src="@Model.BookInLibrary.Book.UrlPhoto" alt="Cover of a book" style="width:200px" />
+        </div>
+        <div class="media-body">
+            <h1><span id="boldH3">@Model.BookInLibrary.Book.Title</span></h1>
+            <h3>@Model.BookInLibrary.Book.Author</h3>
+            <h4>Właściciel: @Model.BookInLibrary.Library.ApplicationUser.UserName</h4>
+            <p></p>
+            @{
+
+
+                if (!Model.IsLent)
+                {
+                    if (Model.IsCurrentlyReadByMe)
+                    {
+                        <p>Aktualnie czytana przeze mnie</p>
+                        <a href="@Url.Action("EndReading")" class="btn btn-primary">
+                            Zakończ czytanie
+                        </a>
+                    }
+                    else if (Model.IsCurrentlyReadBySbElse)
+                    {
+                        <p>Aktualnie czytana przez: @Model.OtherReaderName</p>
+                    }
+                    else
+                    {
+                        <p>Aktualnie czytana: Nie</p>
+                        <a href="@Url.Action("StartReading")" class="btn btn-primary">
+                            Rozpocznij czytanie
+                        </a>
+
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label for="user">Wypożycz użytkownikowi: </label>
+                            </div>
+                            <div class="form-group m-5 pb5">
+
+                                @Html.DropDownList("Users", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <button type="submit" class="btn btn-info">Wypożycz</button>
+                        </form>
+                    }
+                }
+                else
+                {
+                    <p> Wypożyczona dla: @Model.BorrowerName </p>
+                    <a href="@Url.Action("GiveBackConfirm")" class="btn btn-info">
+                        Zgłoś zwrot wypożyczenia
+                    </a>
+                }
+            }
+            <a href="@Url.Action("AddComment")" class="btn btn-success">
+                Dodaj komentarz
+            </a>
+
+        </div>
+    </div>
+</div>
+
