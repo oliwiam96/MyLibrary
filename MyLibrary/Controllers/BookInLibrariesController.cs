@@ -48,6 +48,56 @@ namespace MyLibrary.Controllers
             return View(bookInLibrary);
         }
 
+        // GET: BookInLibraries/StartReading/3
+        // id is the id of a BookInLibrary
+        public ActionResult StartReading(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BookInLibrary bookInLibrary = db.BooksInLibrary.Find(id);
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (bookInLibrary == null || user == null)
+            {
+                return HttpNotFound();
+            }
+            var reading = new Reading
+            {
+                BookInLibrary = bookInLibrary,
+                StartOfReading = DateTime.Now,
+                User = user
+            };
+            db.Readings.Add(reading);
+            db.SaveChanges();
+
+            return RedirectToAction("More", new { id});
+
+        }
+
+        // GET: BookInLibraries/EndReading/3
+        // id is the id of a BookInLibrary
+        public ActionResult EndReading(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BookInLibrary bookInLibrary = db.BooksInLibrary.Find(id);
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            var reading = db.Readings.Where(r => r.BookInLibraryId == bookInLibrary.Id && r.UserId == user.Id && r.EndOfReading == null).FirstOrDefault();
+            if (bookInLibrary == null || user == null || reading == null)
+            {
+                return HttpNotFound();
+            }
+            reading.EndOfReading = DateTime.Now;
+            db.Entry(reading).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("More", new { id });
+
+        }
+
         // GET: BookInLibraries/More/3
         // id is the id of a BookInLibrary
         public ActionResult More(int? id)
@@ -103,9 +153,7 @@ namespace MyLibrary.Controllers
                 Users = new SelectList(db.Users, "Id", "UserName")
 
         };
-            // TODO TERAZ OLI
             return View(bookInLibraryViewModel);
-
         }
 
 

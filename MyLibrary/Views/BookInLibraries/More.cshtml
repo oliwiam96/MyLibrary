@@ -25,7 +25,7 @@
                     if (Model.IsCurrentlyReadByMe)
                     {
                         <p>Aktualnie czytana przeze mnie</p>
-                        <a href="@Url.Action("EndReading")" class="btn btn-primary">
+                        <a href="@Url.Action("EndReading", new { id = Model.BookInLibrary.Id})" class="btn btn-primary">
                             Zakończ czytanie
                         </a>
                     }
@@ -36,7 +36,7 @@
                     else
                     {
                         <p>Aktualnie czytana: Nie</p>
-                        <a href="@Url.Action("StartReading")" class="btn btn-primary">
+                        <a href="@Url.Action("StartReading", new { id = Model.BookInLibrary.Id})" class="btn btn-primary">
                             Rozpocznij czytanie
                         </a>
 
