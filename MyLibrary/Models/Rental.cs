@@ -17,9 +17,9 @@ namespace MyLibrary.Models
         // ze wypozycza wlasciciel biblioteki z ksiazki BookInLibrary
         
         
-        public string UserToId { get; set; }
-        [ForeignKey("UserToId")]
-        public virtual ApplicationUser UserTo { get; set; }
+        public string UserId { get; set; }
+        [ForeignKey("UserId")]
+        public virtual ApplicationUser User { get; set; }
 
         public int BookInLibraryId { get; set; }
         public virtual BookInLibrary BookInLibrary { get; set; }

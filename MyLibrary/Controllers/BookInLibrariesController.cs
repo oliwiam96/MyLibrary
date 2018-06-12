@@ -63,12 +63,42 @@ namespace MyLibrary.Controllers
                 return HttpNotFound();
             }
 
+            // should be only one or null
+            var lastReading = db.Readings.Where(r => r.BookInLibraryId == bookInLibrary.Id && r.EndOfReading == null).FirstOrDefault();
+            Boolean isCurrentlyReadByMe = false;
+            Boolean isCurrentlyReadBySbElse = false;
+            String otherReaderName = "";
+            if(lastReading != null)
+            {
+                if(lastReading.UserId == user.Id)
+                {
+                    isCurrentlyReadByMe = true;
+                }
+                else
+                {
+                    isCurrentlyReadBySbElse = true;
+                    otherReaderName = lastReading.User.UserName;
+                }
+            }
+
+            var isLent = false;
+            var borrowerName = "";
+            // should be only one or null
+            var lastRental = db.Rentals.Where(r => r.BookInLibraryId == bookInLibrary.Id && r.EndOfRental == null).FirstOrDefault();
+            if(lastRental != null)
+            {
+                isLent = true;
+                borrowerName = lastRental.User.UserName;
+            }
+
             var bookInLibraryViewModel = new BookInLibraryViewModel
             {
                 BookInLibrary = bookInLibrary,
-                IsCurrentlyReadByMe = false,
-                IsCurrentlyReadBySbElse = false,
-                OtherReaderName = "elo",
+                IsCurrentlyReadByMe = isCurrentlyReadByMe,
+                IsCurrentlyReadBySbElse = isCurrentlyReadBySbElse,
+                OtherReaderName = otherReaderName,
+                IsLent = isLent,
+                BorrowerName = borrowerName,
 
                 Users = new SelectList(db.Users, "Id", "UserName")
 

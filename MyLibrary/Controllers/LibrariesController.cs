@@ -97,11 +97,14 @@ namespace MyLibrary.Controllers
             db.SaveChanges();
             */
             var library = user.Library;
-            //var bookInLibraryCurrent = db.BooksInLibrary.Where(b => (b.LibraryId == library.Id) && (1==1));
+            /*
             var bookInLibraryCurrent = db.BooksInLibrary.Where(b => (b.LibraryId == library.Id) && (b.Rentals.All(r => r.Status != "Otwarty")));
             var bookInLibraryOutside = db.BooksInLibrary.Where(b => (b.LibraryId == library.Id) && (b.Rentals.Any(r => r.Status == "Otwarty")));
             var bookInLibraryInside = db.BooksInLibrary.Where(b => b.Rentals.Any(r => (r.Status == "Otwarty") && (r.UserToId == user.Id)));
-
+            */
+            var bookInLibraryCurrent = db.BooksInLibrary.Where(b => (b.LibraryId == library.Id) && (b.Rentals.All(r => r.EndOfRental != null)));
+            var bookInLibraryOutside = db.BooksInLibrary.Where(b => (b.LibraryId == library.Id) && (b.Rentals.Any(r => r.EndOfRental == null)));
+            var bookInLibraryInside = db.BooksInLibrary.Where(b => b.Rentals.Any(r => (r.EndOfRental == null) && (r.UserId == user.Id)));
             if (!String.IsNullOrEmpty(searchTitleString))
             {
                 bookInLibraryCurrent = bookInLibraryCurrent.Where(b => b.Book.Title.Contains(searchTitleString));
