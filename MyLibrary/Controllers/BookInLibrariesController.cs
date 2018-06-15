@@ -74,6 +74,29 @@ namespace MyLibrary.Controllers
             return RedirectToAction("More", new { id});
         }
 
+        // GET: BookInLibraries/GiveBackConfirm
+        public ActionResult GiveBackConfirm(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BookInLibrary bookInLibrary = db.BooksInLibrary.Find(id);
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            var rental = db.Rentals.Where(r => r.BookInLibraryId == bookInLibrary.Id && r.EndOfRental == null).FirstOrDefault();
+            
+            if (bookInLibrary == null || user == null || rental == null)
+            {
+                return HttpNotFound();
+            }
+            rental.EndOfRental = DateTime.Now;
+            db.Entry(rental).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("More", new { id });
+
+        }
+
         // POST: BookInLibraries/Rent
         [HttpPost]
         public ActionResult Rent(int? id, BookInLibraryViewModel model)

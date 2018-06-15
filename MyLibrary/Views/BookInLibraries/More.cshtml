@@ -57,7 +57,7 @@
                 else
                 {
                     <p> Wypożyczona dla: @Model.BorrowerName </p>
-                    <a href="@Url.Action("GiveBackConfirm")" class="btn btn-info">
+                    <a href="@Url.Action("GiveBackConfirm", new { id = Model.BookInLibrary.Id})" class="btn btn-info">
                         Zgłoś zwrot wypożyczenia
                     </a>
                 }
@@ -73,3 +73,68 @@
         <button type="Submit" class="btn btn-success" value="AddComment">Dodaj komentarz</button>
     </div>
 }
+
+<h3>Czytania</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Od</th>
+            <th scope="col">Do</th>
+            <th scope="col">Nazwa użytkownika</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @{
+            var readings = Model.BookInLibrary.Readings.OrderByDescending(t => (t.EndOfReading ?? DateTime.MaxValue));
+
+            for (int i = 0; i < readings.Count(); i++)
+            {
+                <tr>
+                    <th>@(i + 1)</th>
+                    <td>@readings.ElementAt(i).StartOfReading</td>
+                    @if (readings.ElementAt(i).EndOfReading != null)
+                    {
+                        <td>@readings.ElementAt(i).EndOfReading</td>
+
+                    }
+                    else
+                    {
+                        <td>w trakcie</td>
+                    }
+
+                    <td>@readings.ElementAt(i).User.UserName</td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+
+<h3>Komentarze</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nazwa użytkownika</th>
+            <th scope="col">Treść</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @{
+            var comments = Model.BookInLibrary.Comments.OrderByDescending(c => c.User.UserName);
+
+            for (int i = 0; i < comments.Count(); i++)
+            {
+                <tr>
+                    <th>@(i + 1)</th>
+                    <td>@comments.ElementAt(i).User.UserName</td>
+                    <td>@comments.ElementAt(i).Text</td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
