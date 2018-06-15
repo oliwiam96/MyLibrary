@@ -17,5 +17,8 @@ namespace MyLibrary.Models
         public String OtherReaderName { get; set; } //set if is currently read by sb else
         public Boolean IsCurrentlyReadByMe { get; set; }
         public SelectList Users { get; set; }
+
+        public string Comment { get; set; }
+        public string UserId { get; set; }
     }
 }

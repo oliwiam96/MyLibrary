@@ -47,6 +47,61 @@ namespace MyLibrary.Controllers
             }
             return View(bookInLibrary);
         }
+        //POST: BookInLibraries/AddComment
+        [HttpPost]
+        public ActionResult AddComment(int? id, BookInLibraryViewModel model)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BookInLibrary bookInLibrary = db.BooksInLibrary.Find(id);
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (bookInLibrary == null || user == null)
+            {
+                return HttpNotFound();
+            }
+
+            var comment = new Comment
+            {
+                Text = model.Comment,
+                BookInLibraryId = bookInLibrary.Id,
+                UserId = user.Id
+            };
+            db.Comments.Add(comment);
+            db.SaveChanges();
+
+            return RedirectToAction("More", new { id});
+        }
+
+        // POST: BookInLibraries/Rent
+        [HttpPost]
+        public ActionResult Rent(int? id, BookInLibraryViewModel model)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BookInLibrary bookInLibrary = db.BooksInLibrary.Find(id);
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (bookInLibrary == null || user == null)
+            {
+                return HttpNotFound();
+            }
+
+            var rental = new Rental
+            {
+                BookInLibraryId = bookInLibrary.Id,
+                StartOfRental = DateTime.Now,
+                UserId = model.UserId
+            };
+
+            db.Rentals.Add(rental);
+            db.SaveChanges();
+
+
+            return RedirectToAction("More", new { id });
+        }
 
         // GET: BookInLibraries/StartReading/3
         // id is the id of a BookInLibrary
@@ -150,7 +205,7 @@ namespace MyLibrary.Controllers
                 IsLent = isLent,
                 BorrowerName = borrowerName,
 
-                Users = new SelectList(db.Users, "Id", "UserName")
+                Users = new SelectList(db.Users.Where(u=> u.Id!= user.Id), "Id", "UserName")
 
         };
             return View(bookInLibraryViewModel);

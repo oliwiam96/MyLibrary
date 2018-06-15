@@ -11,7 +11,7 @@ namespace MyLibrary.Models
         public int Id { get; set; }
         public string Status { get; set; }
         public DateTime StartOfRental { get; set; }
-        public DateTime EndOfRental { get; set; }
+        public DateTime? EndOfRental { get; set; }
 
         //public string UserFromId { get; set; } // niepotrzebne, bo wiadomo, 
         // ze wypozycza wlasciciel biblioteki z ksiazki BookInLibrary

@@ -25,13 +25,15 @@ namespace MyLibrary.Models
 
         public virtual ICollection<Reading> Readings { get; set; }
 
+        public virtual ICollection<Reading> Comments { get; set; }
+
         public virtual ICollection<Friendship> Friendships{ get; set; } // biblioteki, do ktorych mnie zaproszono
 
         public virtual ICollection<Rental> Rentals { get; set; } //ksiazki, ktore ja pozyczylem od kogos
         //TODO!!! czy to potrzebne, skoro jest user.Library.BookInLibraries.Rentals!!! TODO
         // info o pozyczonych komus sa w ksiazkach w mojej bibliotece
 
-        public virtual ICollection<Rental> RentalsExternal { get; set; } //ksiazki, ktore ja pozyczylem od kogos spoza systemu
+        //public virtual ICollection<Rental> RentalsExternal { get; set; } //ksiazki, ktore ja pozyczylem od kogos spoza systemu
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

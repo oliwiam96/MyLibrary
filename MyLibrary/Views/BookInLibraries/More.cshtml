@@ -10,7 +10,7 @@
 <div class="media">
     <div class="thumbnail">
         <div class="media-left">
-            <img class="media-object" src="@Model.BookInLibrary.Book.UrlPhoto" alt="Cover of a book" id="my_image"/>
+            <img class="media-object" src="@Model.BookInLibrary.Book.UrlPhoto" alt="Cover of a book" id="my_image" />
         </div>
         <div class="media-body">
             <h1><span id="boldH3">@Model.BookInLibrary.Book.Title</span></h1>
@@ -40,16 +40,18 @@
                             Rozpocznij czytanie
                         </a>
 
-                        <form class="form-inline">
-                            <div class="form-group">
-                                <label for="user">Wypożycz użytkownikowi: </label>
-                            </div>
-                            <div class="form-group m-5 pb5">
-
-                                @Html.DropDownList("Users", null, htmlAttributes: new { @class = "form-control" })
-                            </div>
-                            <button type="submit" class="btn btn-info">Wypożycz</button>
-                        </form>
+                        using (Html.BeginForm("Rent", "BookInLibraries", new { id = Model.BookInLibrary.Id }, FormMethod.Post, null))
+                        {
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label for="user">Wypożycz użytkownikowi: </label>
+                                </div>
+                                <div class="form-group m-5 pb5">
+                                    @Html.DropDownListFor(u => u.UserId, Model.Users, null, new { @class = "form-control" })
+                                </div>
+                                <button type="submit" class="btn btn-info">Wypożycz</button>
+                            </form>
+                        }
                     }
                 }
                 else
@@ -63,8 +65,11 @@
         </div>
     </div>
 </div>
-<div class="form-group">
-    <label for="comment">Komentarz do książki:</label>
-    <textarea class="form-control" id="comment"></textarea>
-    <button type="submit" class="btn btn-success">Dodaj komentarz</button>
-</div>
+@using (Html.BeginForm("AddComment", "BookInLibraries", new { id = Model.BookInLibrary.Id }, FormMethod.Post, null))
+{
+    <div class="form-group">
+        <label for="comment">Komentarz do książki:</label>
+        @Html.TextAreaFor(c => c.Comment, new { @class = "form-control", @id = "comment" })
+        <button type="Submit" class="btn btn-success" value="AddComment">Dodaj komentarz</button>
+    </div>
+}
