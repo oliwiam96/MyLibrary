@@ -56,10 +56,14 @@
                                 @Html.ActionLink("Usuń", "Delete", new { id = Model.ElementAt(j).Id })
 
                             </p>
-                            <p>
-                                @Html.ActionLink("Dodaj do biblioteki", "AddBookToLibrary",
-                                                  "BookInLibraries", new { id = Model.ElementAt(j).Id }, null)
-                            </p>
+                            <form class="form-inline" method="post" action="@Url.Action("AddBookToLibrary", "BookInLibraries", new { id = Model.ElementAt(j).Id })">
+                                <div class="input-group">
+                                    @Html.DropDownList("libraryId", new SelectList(ViewBag.Libraries, "Id", "ApplicationUser.UserName"), null, new { @class = "form-control" })
+                                </div>
+                                <div class="input-group">
+                                    <button type="submit" value="Others" class="btn btn-default">Dodaj do biblioteki</button>
+                                </div>
+                            </form>
                         </div>
 
                     </div>

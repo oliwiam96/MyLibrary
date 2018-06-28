@@ -28,7 +28,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Baza książek", "Index", "Books")</li>
-                    <li>@Html.ActionLink("Moja bibilioteka", "Index", "Libraries")</li>
+                    <li>@Html.ActionLink("Moja bibilioteka", "Index", "Libraries", new { id = -1 }, null)</li>
                     <li>@Html.ActionLink("Zaproś do biblioteki", "Invite", "Friendship")</li>
                     <li>@Html.ActionLink("Zaprzyjaźnione biblioteki", "Others", "Libraries")</li>
                     <li>@Html.ActionLink("Informacje", "About", "Home")</li>

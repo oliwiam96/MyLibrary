@@ -120,7 +120,7 @@ namespace MyLibrary.Controllers
             db.Entry(rental).State = EntityState.Modified;
             db.SaveChanges();
 
-            return RedirectToAction("Index", "Libraries");
+            return RedirectToAction("Index", "Libraries", new { id = rental.User.Library.Id });
 
         }
 
@@ -220,14 +220,13 @@ namespace MyLibrary.Controllers
             }
 
             // check if logged user has permissions to access this book
-            Boolean isOwner = bookInLibrary.Library.ApplicationUser.Id == user.Id;
-            Boolean isFriend = db.Friendships.Any(f => (f.LibraryId == bookInLibrary.LibraryId && f.ApplicationUserId == user.Id));
+            Boolean isFriendOrOwner = IsFriendOrOwner(bookInLibrary, user);
             Boolean isRent = db.Rentals.Any(r => (r.BookInLibraryId == bookInLibrary.Id && r.UserId == user.Id && r.EndOfRental == null));
             if(isRent)
             {
                 return RedirectToAction("MoreAboutRent", new { bookInLibrary.Id });
             }
-            else if(!isOwner && !isFriend)
+            else if(!isFriendOrOwner)
             {
                 // error
                 ViewBag.Title = "Brak uprawnień";
@@ -276,6 +275,13 @@ namespace MyLibrary.Controllers
 
             };
             return View(bookInLibraryViewModel);
+        }
+
+        private Boolean IsFriendOrOwner(BookInLibrary bookInLibrary, ApplicationUser user)
+        {
+            Boolean isOwner = bookInLibrary.Library.ApplicationUser.Id == user.Id;
+            Boolean isFriend = db.Friendships.Any(f => (f.LibraryId == bookInLibrary.LibraryId && f.ApplicationUserId == user.Id));
+            return isOwner || isFriend;
         }
 
         // GET: BookInLibraries/MoreAboutRent/3
@@ -349,19 +355,18 @@ namespace MyLibrary.Controllers
             {
                 return HttpNotFound();
             }
-
-            if (user.Id == bookInLibrary.Library.ApplicationUser.Id) // deletes only if book is in a library of logged user
+            if(IsFriendOrOwner(bookInLibrary, user))// deletes only if user has permissions
             {
                 db.BooksInLibrary.Remove(bookInLibrary);
                 db.SaveChanges();
             }
-            return RedirectToAction("Index", "Libraries");
+            return RedirectToAction("Index", "Libraries", new { id = bookInLibrary.LibraryId});
         }
 
 
-        // GET: BookInLibraries/AddBookToLibrary/2
+        // POST: BookInLibraries/AddBookToLibrary/2
         // id is the id of a Book (not a BookInLibrary)
-        // TODO na razie tylko dodaje do swojej, todo dodawanie do innych bibliotek
+        [HttpPost]
         public ActionResult AddBookToLibrary(int? id)
         {
             if (id == null)
@@ -379,18 +384,30 @@ namespace MyLibrary.Controllers
                 return HttpNotFound();
             }
 
-            var bookInLibrary = new BookInLibrary
+            int libraryId = 0;
+            Int32.TryParse(Request.Form["libraryId"], out libraryId);
+            var library = db.Libraries.Find(libraryId);
+            Boolean canAdd = (user.Library.Id == library.Id)
+                                || db.Friendships.Any(f => (f.LibraryId == library.Id && f.ApplicationUserId == user.Id));
+            if (canAdd)
             {
-                Book = book,
-                Library = user.Library
-            };
+                var bookInLibrary = new BookInLibrary
+                {
+                    Book = book,
+                    Library = library
+                };
 
 
-            db.BooksInLibrary.Add(bookInLibrary);
-            db.SaveChanges();
-
-
-            return RedirectToAction("Index", "Books");
+                db.BooksInLibrary.Add(bookInLibrary);
+                db.SaveChanges();
+                return RedirectToAction("Index", "Books");
+            }
+            else
+            {
+                ViewBag.Title = "Błąd";
+                ViewBag.Message = "Nie masz uprawnień, żeby dodawać książki do tej biblioteki.";
+                return View("Info");
+            }            
         }
 
 

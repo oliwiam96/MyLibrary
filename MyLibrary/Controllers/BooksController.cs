@@ -8,14 +8,23 @@ using System.Web;
 using System.Web.Mvc;
 using MyLibrary.Models;
 using HtmlAgilityPack;
-
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace MyLibrary.Controllers
 {
     [Authorize]
     public class BooksController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db;
+        private UserManager<ApplicationUser> UserManager;
+
+        public BooksController()
+        {
+            db = new ApplicationDbContext();
+            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+        }
+
 
         // GET: Books
         public ActionResult Index(string searchTitleString, string searchAuthorString)
@@ -30,6 +39,13 @@ namespace MyLibrary.Controllers
             {
                 books = books.Where(b => b.Author.Contains(searchAuthorString));
             }
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            var libraries_ids = db.Friendships.Where(f => f.ApplicationUserId == user.Id).Select(f => f.LibraryId);
+            var libraries = db.Libraries.Where(l => libraries_ids.Any(i => l.Id == i)).ToList();
+            
+            libraries.Add(user.Library);
+
+            ViewBag.Libraries = libraries;
             return View(books.ToList());
         }
 

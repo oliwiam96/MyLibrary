@@ -39,7 +39,7 @@ namespace MyLibrary.Controllers
                 return HttpNotFound();
             }
             Library library;
-            if (id == null || user.Library.Id == id)
+            if (id == null || user.Library.Id == id || id==-1)
             {
                 library = user.Library;
             }
