@@ -11,23 +11,31 @@
 <h2>Moja aktywność</h2>
 
 <h3>Średnia liczba książek/rok: @Model.BooksPerYear.ToString("0.00")</h3>
-
-<div class="media">
-    <div class="thumbnail">
-        <div class="media-left">
-            <img class="media-object" src="@Model.LastFinishedReading.BookInLibrary.Book.UrlPhoto" alt="Cover of a book" id="my_image_medium" />
+@{
+    if (Model.LastFinishedReading != null)
+    {
+        <div class="media">
+            <div class="thumbnail">
+                <div class="media-left">
+                    <img class="media-object" src="@Model.LastFinishedReading.BookInLibrary.Book.UrlPhoto" alt="Cover of a book" id="my_image_medium" />
+                </div>
+                <div class="media-body">
+                    <h1><span id="boldH3">Ostatnio przeczytana książka</span></h1>
+                    <h4>@Model.LastFinishedReading.BookInLibrary.Book.Title</h4>
+                    <h4>@Model.LastFinishedReading.BookInLibrary.Book.Author</h4>
+                    <p>Czytanie ukończono: @Model.LastFinishedReading.EndOfReading</p>
+                    <a href="@Url.Action("More", "BookInLibraries", new { id = Model.LastFinishedReading.BookInLibrary.Id})" class="btn btn-info">
+                        Więcej
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="media-body">
-            <h1><span id="boldH3">Ostatnio przeczytana książka</span></h1>
-            <h4>@Model.LastFinishedReading.BookInLibrary.Book.Title</h4>
-            <h4>@Model.LastFinishedReading.BookInLibrary.Book.Author</h4>
-            <p>Czytanie ukończono: @Model.LastFinishedReading.EndOfReading</p>
-            <a href="@Url.Action("More", "BookInLibraries", new { id = Model.LastFinishedReading.BookInLibrary.Id})" class="btn btn-info">
-                Więcej
-            </a>
-        </div>
-    </div>
-</div>
+    }
+    else
+    {
+        <p>Brak danych o jakiejkolwiek ukończonej książce.</p>
+    }
+}
 
 <h3>Aktualnie czytane książki</h3>
 <table class="table">
@@ -45,14 +53,14 @@
         @{
             for (int i = 0; i < Model.CurrentReadings.Count(); i++)
             {
-        <tr>
-            <th>@(i + 1)</th>
-            <td><img class="media-object" src="@Model.CurrentReadings.ElementAt(i).BookInLibrary.Book.UrlPhoto" alt="Cover of a book" id="my_image_small" /></td>
-            <td>@Model.CurrentReadings.ElementAt(i).BookInLibrary.Book.Author</td>
-            <td>@Model.CurrentReadings.ElementAt(i).BookInLibrary.Book.Title</td>
-            <td>@Model.CurrentReadings.ElementAt(i).StartOfReading</td>
-            <td>@Html.ActionLink("Więcej", "More", "BookInLibraries", new { id = Model.CurrentReadings.ElementAt(i).BookInLibrary.Id }, null)</td>
-        </tr>
+                <tr>
+                    <th>@(i + 1)</th>
+                    <td><img class="media-object" src="@Model.CurrentReadings.ElementAt(i).BookInLibrary.Book.UrlPhoto" alt="Cover of a book" id="my_image_small" /></td>
+                    <td>@Model.CurrentReadings.ElementAt(i).BookInLibrary.Book.Author</td>
+                    <td>@Model.CurrentReadings.ElementAt(i).BookInLibrary.Book.Title</td>
+                    <td>@Model.CurrentReadings.ElementAt(i).StartOfReading</td>
+                    <td>@Html.ActionLink("Więcej", "More", "BookInLibraries", new { id = Model.CurrentReadings.ElementAt(i).BookInLibrary.Id }, null)</td>
+                </tr>
             }
         }
 

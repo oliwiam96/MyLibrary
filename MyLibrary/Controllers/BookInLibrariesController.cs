@@ -271,7 +271,7 @@ namespace MyLibrary.Controllers
                 IsLent = isLent,
                 BorrowerName = borrowerName,
 
-                Users = new SelectList(db.Users.Where(u => u.Id != user.Id), "Id", "UserName")
+                Users = new SelectList(db.Users.Where(u => u.Id != bookInLibrary.Library.ApplicationUser.Id), "Id", "UserName")
 
             };
             return View(bookInLibraryViewModel);
