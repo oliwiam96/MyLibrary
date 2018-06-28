@@ -121,6 +121,7 @@ namespace MyLibrary.Controllers
             string emailText = "Użytkownik " + user.FirstName + " " + user.SecondName
                 + " wysłał Ci zaproszenie do swojej biblioteki w systemie MyLibrary. Kliknij <a href=\""
                 + callbackUrl + "\">tutaj</a>, by uzyskać dostęp.";
+            System.Diagnostics.Debug.WriteLine(emailText);
             string subject = "[MyLibrary] Zaproszenie do biblioteki od użytkownika " + user.UserName;
 
 

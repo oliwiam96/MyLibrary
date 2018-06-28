@@ -197,11 +197,11 @@ namespace MyLibrary.Controllers
 
                 var result = await UserManager.CreateAsync(user, model.Password);
 
-                var context = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+                /*var context = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
                 var myLibrary = context.Libraries.Create();
                 myLibrary.ApplicationUser = user;
                 context.Libraries.Add(myLibrary);
-                context.SaveChanges();
+                context.SaveChanges();*/
 
 
                 if (result.Succeeded)
@@ -240,6 +240,11 @@ namespace MyLibrary.Controllers
             {
                 return View("Error");
             }
+            var context = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+            var myLibrary = context.Libraries.Create();
+            myLibrary.ApplicationUser = context.Users.Find(userId);
+            context.Libraries.Add(myLibrary);
+            context.SaveChanges();
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
@@ -548,6 +553,8 @@ namespace MyLibrary.Controllers
                new { userId = userID, code = code }, protocol: Request.Url.Scheme);
             await UserManager.SendEmailAsync(userID, subject,
                 "Potwierdź konto, klikając <a href=\"" + callbackUrl + "\">tutaj</a>");
+
+            System.Diagnostics.Debug.WriteLine("Potwierdź konto, klikając <a href=\"" + callbackUrl + "\">tutaj</a>");
 
             return callbackUrl;
         }
