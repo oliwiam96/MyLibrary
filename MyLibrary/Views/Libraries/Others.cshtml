@@ -1,0 +1,24 @@
+﻿@model MyLibrary.Models.OthersViewModel
+@{
+    ViewBag.Title = "Inne biblioteki";
+}
+
+<h2>Zaprzyjaźnione biblioteki</h2>
+@{
+    if (Model.Libraries.Any())
+    {
+        <h3>Wybierz nazwę właściciela biblioteki, którą chcesz odwiedzić</h3>
+        <form class="form-inline" method="post" action="@Url.Action("Others", "Libraries")">
+            <div class="input-group">
+                @Html.DropDownListFor(u => u.LibraryId, Model.Libraries, null, new { @class = "form-control" })
+            </div>
+            <div class="input-group">
+                <button type="submit" value="Others" class="btn btn-success">Wybierz</button>
+            </div>
+        </form>
+    }
+    else
+    {
+        <p>Na razie nie posiadasz żadnych zaprzyjaźnionych bibliotek :(</p>
+    }
+}

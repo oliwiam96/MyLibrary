@@ -26,7 +26,7 @@ namespace MyLibrary.Controllers
         }
 
 
-        // GET: Libraries
+        // GET: Libraries/Index/3
         public ActionResult Index(int? id, string searchTitleString, string searchAuthorString)
         {
             var myId = User.Identity.GetUserId();
@@ -87,10 +87,41 @@ namespace MyLibrary.Controllers
                 BookInLibraryRentalInside = bookInLibraryInside.ToList()
 
             };
-            //ICollection<BookInLibrary> books = library.BookInLibrary;
-
-
             return View(modelViewLibrary);
+        }
+
+        // GET: Libraries/Others
+        public ActionResult Others()
+        {
+            var myId = User.Identity.GetUserId();
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            var libraries_ids = db.Friendships.Where(f => f.ApplicationUserId == myId).Select(f => f.LibraryId);
+            var libraries = db.Libraries.Where(l => libraries_ids.Any(i => l.Id == i)).ToList();
+
+            var othersViewModel = new OthersViewModel
+            {
+                Libraries = new SelectList(libraries, "Id", "ApplicationUser.UserName")
+            };
+
+            return View(othersViewModel);
+        }
+
+        // POST: Libraries/Others
+        [HttpPost]
+        public ActionResult Others(OthersViewModel model)
+        {
+            if (model.LibraryId == null)
+            {
+                ViewBag.Title = "Błąd";
+                ViewBag.Message = "Nie podano bibiloteki do odwiedzenia.";
+                return View("Info");
+            }
+            return RedirectToAction("Index", new { id = model.LibraryId });
         }
 
         // GET: Libraries/Details/5
