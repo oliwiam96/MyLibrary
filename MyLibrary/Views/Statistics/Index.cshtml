@@ -1,9 +1,27 @@
-﻿
+﻿@model MyLibrary.Models.StatisticsViewModel
+
 @{
     ViewBag.Title = "Szybkie statystyki";
 }
 
+@section Styles{
+    <link href="@Url.Content("~/Styles/Books/index.css")" rel="stylesheet" type="text/css" />
+}
+
 <h2>Moja aktywność</h2>
 
+<h3>Średnia liczba książek/rok: @Model.BooksPerYear.ToString("0.00")</h3>
 
-
+<div class="media">
+    <div class="thumbnail">
+        <div class="media-left">
+            <img class="media-object" src="@Model.LastFinishedReading.BookInLibrary.Book.UrlPhoto" alt="Cover of a book" id="my_image_medium" />
+        </div>
+        <div class="media-body">
+            <h1><span id="boldH3">Ostatnio przeczytana książka</span></h1>
+            <h3>@Model.LastFinishedReading.BookInLibrary.Book.Title</h3>
+            <h3>@Model.LastFinishedReading.BookInLibrary.Book.Author</h3>
+            <p>Czytanie ukończono: @Model.LastFinishedReading.EndOfReading</p>
+        </div>
+    </div>
+</div>

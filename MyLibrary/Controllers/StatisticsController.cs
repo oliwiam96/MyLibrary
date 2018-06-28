@@ -38,18 +38,19 @@ namespace MyLibrary.Controllers
             }
 
             // last read book (finished)
-            var lastReading = myReadings.OrderByDescending(t => (t.EndOfReading ?? DateTime.MinValue)).FirstOrDefault(); // nulls go last
-            BookInLibrary lastReadBook;
-            if (lastReading!= null) {
-                lastReadBook = db.BooksInLibrary.Where(b => b.BookId == lastReading.BookInLibraryId).FirstOrDefault();
-            }
+            var lastFinishedReading = myReadings.OrderByDescending(t => (t.EndOfReading ?? DateTime.MinValue)).FirstOrDefault(); // nulls go last
 
             // currently read books
-            var currentyReadBooks = myReadings.Where(r => r.EndOfReading == null).ToList();
-            
-            // TODO test, create ModelView, create View
+            var currentReadings = myReadings.Where(r => r.EndOfReading == null).ToList();
 
-            return View();
+            var statisticsViewModel = new StatisticsViewModel
+            {
+                BooksPerYear = booksPerYear,
+                LastFinishedReading = lastFinishedReading,
+                CurrentReadings = currentReadings
+            };
+
+            return View(statisticsViewModel);
         }
     }
 }
