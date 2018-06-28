@@ -27,45 +27,8 @@ namespace MyLibrary.Controllers
 
 
         // GET: Libraries
-        public ActionResult Index(string searchTitleString, string searchAuthorString)
+        public ActionResult Index(int? id, string searchTitleString, string searchAuthorString)
         {
-            /*var rental = new Rental
-            {
-                BookInLibraryId = 2,
-                StartOfRental= DateTime.Now,
-                EndOfRental = DateTime.Now,
-                Status="Zamknięty"
-            };
-            var rental2 = new Rental
-            {
-                BookInLibraryId = 3,
-                StartOfRental = DateTime.Now,
-                EndOfRental = DateTime.Now,
-                Status = "Otwarty"
-            };
-            var rental3 = new Rental
-            {
-                BookInLibraryId = 4,
-                StartOfRental = DateTime.Now,
-                EndOfRental = DateTime.Now,
-                Status = "Zamknięty"
-            };
-            var rental4 = new Rental
-            {
-                BookInLibraryId = 4,
-                StartOfRental = DateTime.Now,
-                EndOfRental = DateTime.Now,
-                Status = "Otwarty"
-            };
-
-            db.Rentals.Add(rental);
-            db.Rentals.Add(rental2);
-            db.Rentals.Add(rental3);
-            db.Rentals.Add(rental4);
-
-            db.SaveChanges();*/
-
-
             var myId = User.Identity.GetUserId();
             /*var user = UserManager.Users
                 .Include(x => x.Library.BookInLibrary.Select(b => b.Book))
@@ -75,28 +38,26 @@ namespace MyLibrary.Controllers
             {
                 return HttpNotFound();
             }
-            /*
-            var rental4 = new Rental
+            Library library;
+            if (id == null || user.Library.Id == id)
             {
-                BookInLibraryId = 7,
-                StartOfRental = DateTime.Now,
-                EndOfRental = DateTime.Now,
-                Status = "Otwarty",
-                UserTo = user
-            };
-            var rental5 = new Rental
+                library = user.Library;
+            }
+            else
             {
-                BookInLibraryId = 8,
-                StartOfRental = DateTime.Now,
-                EndOfRental = DateTime.Now,
-                Status = "Zamknięty",
-                UserTo = user
-            };
-            db.Rentals.Add(rental4);
-            db.Rentals.Add(rental5);
-            db.SaveChanges();
-            */
-            var library = user.Library;
+                // check permissions
+                var friendship = db.Friendships.Where(f => (f.LibraryId == id && f.ApplicationUserId == user.Id)).FirstOrDefault();
+                if (friendship == null)
+                {
+                    ViewBag.Title = "Błąd";
+                    ViewBag.Message = "Podana biblioteka nie istnieje lub nie masz do niej uprawnień.";
+                    return View("Info");
+                }
+                else
+                {
+                    library = friendship.Library;
+                }
+            }
             /*
             var bookInLibraryCurrent = db.BooksInLibrary.Where(b => (b.LibraryId == library.Id) && (b.Rentals.All(r => r.Status != "Otwarty")));
             var bookInLibraryOutside = db.BooksInLibrary.Where(b => (b.LibraryId == library.Id) && (b.Rentals.Any(r => r.Status == "Otwarty")));
@@ -117,7 +78,6 @@ namespace MyLibrary.Controllers
                 bookInLibraryOutside = bookInLibraryOutside.Where(b => b.Book.Author.Contains(searchAuthorString));
                 bookInLibraryInside = bookInLibraryInside.Where(b => b.Book.Author.Contains(searchAuthorString));
             }
-
 
             var modelViewLibrary = new LibraryViewModel
             {

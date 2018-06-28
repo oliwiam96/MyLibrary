@@ -7,7 +7,7 @@
 }
 
 <h2>Książka w bibibliotece</h2>
-@Html.ActionLink("Powrót do biblioteki", "Index", "Libraries")
+@Html.ActionLink("Powrót do biblioteki", "Index", "Libraries",  new { id = Model.BookInLibrary.LibraryId}, null)
 <div class="media">
     <div class="thumbnail">
         <div class="media-left">
