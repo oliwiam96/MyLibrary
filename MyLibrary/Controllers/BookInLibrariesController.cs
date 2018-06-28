@@ -298,6 +298,83 @@ namespace MyLibrary.Controllers
             return RedirectToAction("Index", "Books");
         }
 
+
+
+        // GET: BookInLibraries/DeleteComment/3
+        // id is the id of a comment
+        // deletes only if book is in a library of logged user
+        public ActionResult DeleteComment(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Comment comment = db.Comments.Find(id);
+            BookInLibrary bookInLibrary = comment.BookInLibrary;
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (comment == null || user == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (user.Id == bookInLibrary.Library.ApplicationUser.Id) // deletes only if book is in a library of logged user
+            {
+                db.Comments.Remove(comment);
+                db.SaveChanges();
+            }
+            return RedirectToAction("More", new { bookInLibrary.Id });
+        }
+
+        // GET: BookInLibraries/DeleteReading/3
+        // id is the id of a reading
+        // deletes only if book is in a library of logged user
+        public ActionResult DeleteReading(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Reading reading = db.Readings.Find(id);
+            BookInLibrary bookInLibrary = reading.BookInLibrary;
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (reading == null || user == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (user.Id == bookInLibrary.Library.ApplicationUser.Id) // deletes only if book is in a library of logged user
+            {
+                db.Readings.Remove(reading);
+                db.SaveChanges();
+            }
+            return RedirectToAction("More", new { bookInLibrary.Id });
+        }
+
+        // GET: BookInLibraries/DeleteRental/3
+        // id is the id of a rental
+        // deletes only if book is in a library of logged user
+        public ActionResult DeleteRental(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Rental rental = db.Rentals.Find(id);
+            BookInLibrary bookInLibrary = rental.BookInLibrary;
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (rental == null || user == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (user.Id == bookInLibrary.Library.ApplicationUser.Id) // deletes only if book is in a library of logged user
+            {
+                db.Rentals.Remove(rental);
+                db.SaveChanges();
+            }
+            return RedirectToAction("More", new { bookInLibrary.Id });
+        }
+
         // TODO usun
         // GET: BookInLibraries/Create
         public ActionResult Create()

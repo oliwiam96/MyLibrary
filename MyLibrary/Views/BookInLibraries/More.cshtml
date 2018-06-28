@@ -105,6 +105,10 @@
                     }
 
                     <td>@readings.ElementAt(i).User.UserName</td>
+                    <td>
+                        @Html.ActionLink("Usuń", "DeleteReading", "BookInLibraries", new { id = readings.ElementAt(i).Id },
+                                 new { onclick = "return confirm('Czy na pewno chcesz usunąć ten wpis o czytaniu?');" })
+                    </td>
                 </tr>
             }
         }
@@ -132,6 +136,10 @@
                     <th>@(i + 1)</th>
                     <td>@comments.ElementAt(i).User.UserName</td>
                     <td>@comments.ElementAt(i).Text</td>
+                    <td>
+                        @Html.ActionLink("Usuń", "DeleteComment", "BookInLibraries", new { id = comments.ElementAt(i).Id },
+                               new { onclick = "return confirm('Czy na pewno chcesz usunąć ten komentarz?');" })
+                    </td>
                 </tr>
             }
         }
@@ -144,10 +152,10 @@
     <thead>
         <tr>
             <th scope="col">#</th>
+            <th scope="col">Od</th>
+            <th scope="col">Do</th>
             <th scope="col">Nazwa użytkownika</th>
-            <th scope="col">Treść</th>
         </tr>
-
     </thead>
     <tbody>
         @{
@@ -169,6 +177,10 @@
                     }
 
                     <td>@rentals.ElementAt(i).User.UserName</td>
+                    <td>
+                        @Html.ActionLink("Usuń", "DeleteRental", "BookInLibraries", new { id = rentals.ElementAt(i).Id },
+                                 new { onclick = "return confirm('Czy na pewno chcesz usunąć ten wpis o wypożyczeniu?');" })
+                    </td>
                 </tr>
             }
         }
