@@ -19,8 +19,6 @@
             <h4>Właściciel: @Model.BookInLibrary.Library.ApplicationUser.UserName</h4>
             <p></p>
             @{
-
-
                 if (!Model.IsLent)
                 {
                     if (Model.IsCurrentlyReadByMe)
@@ -169,7 +167,7 @@
                     <td>@rentals.ElementAt(i).StartOfRental</td>
                     @if (rentals.ElementAt(i).EndOfRental != null)
                     {
-                        <td>@readings.ElementAt(i).EndOfReading</td>
+                        <td>@rentals.ElementAt(i).EndOfRental</td>
 
                     }
                     else

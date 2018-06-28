@@ -1,0 +1,46 @@
+﻿@model MyLibrary.Models.BookInLibraryViewModel
+@{
+    ViewBag.Title = "Książka w bibliotece- pożyczona";
+}
+@section Styles{
+    <link href="@Url.Content("~/Styles/Books/index.css")" rel="stylesheet" type="text/css" />
+}
+<h2>Książka w bibibliotece- pożyczona</h2>
+@Html.ActionLink("Powrót do biblioteki", "Index", "Libraries")
+<div class="media">
+    <div class="thumbnail">
+        <div class="media-left">
+            <img class="media-object" src="@Model.BookInLibrary.Book.UrlPhoto" alt="Cover of a book" id="my_image" />
+        </div>
+        <div class="media-body">
+            <h1><span id="boldH3">@Model.BookInLibrary.Book.Title</span></h1>
+            <h3>@Model.BookInLibrary.Book.Author</h3>
+            <h4>Właściciel: @Model.BookInLibrary.Library.ApplicationUser.UserName</h4>
+            <p></p>
+            @{
+                <p> Wypożyczona przez: @Model.BorrowerName </p>
+                if (Model.IsCurrentlyReadByMe)
+                {
+                    <p>Aktualnie czytana przeze mnie</p>
+                    <a href="@Url.Action("EndReading", new { id = Model.BookInLibrary.Id})" class="btn btn-primary">
+                        Zakończ czytanie
+                    </a>
+                }
+                else if (Model.IsCurrentlyReadBySbElse)
+                {
+                    <p>Aktualnie czytana przez: @Model.OtherReaderName</p>
+                }
+                else
+                {
+                    <p>Aktualnie czytana: Nie</p>
+                    <a href="@Url.Action("StartReading", new { id = Model.BookInLibrary.Id})" class="btn btn-primary">
+                        Rozpocznij czytanie
+                    </a>
+                    <a href="@Url.Action("GiveBack", new { id = Model.BookInLibrary.Id})" class="btn btn-info">
+                        Oddaj książkę
+                    </a>
+                }
+            }
+        </div>
+    </div>
+</div>

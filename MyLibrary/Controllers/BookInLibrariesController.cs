@@ -75,7 +75,7 @@ namespace MyLibrary.Controllers
             db.Comments.Add(comment);
             db.SaveChanges();
 
-            return RedirectToAction("More", new { id});
+            return RedirectToAction("More", new { id });
         }
 
         // GET: BookInLibraries/GiveBackConfirm
@@ -88,7 +88,7 @@ namespace MyLibrary.Controllers
             BookInLibrary bookInLibrary = db.BooksInLibrary.Find(id);
             var user = UserManager.FindById(User.Identity.GetUserId());
             var rental = db.Rentals.Where(r => r.BookInLibraryId == bookInLibrary.Id && r.EndOfRental == null).FirstOrDefault();
-            
+
             if (bookInLibrary == null || user == null || rental == null)
             {
                 return HttpNotFound();
@@ -153,9 +153,10 @@ namespace MyLibrary.Controllers
             db.Readings.Add(reading);
             db.SaveChanges();
 
-            return RedirectToAction("More", new { id});
+            return RedirectToAction("More", new { id });
 
         }
+
 
         // GET: BookInLibraries/EndReading/3
         // id is the id of a BookInLibrary
@@ -195,14 +196,30 @@ namespace MyLibrary.Controllers
                 return HttpNotFound();
             }
 
+            // check if logged user has permissions to access this book
+            Boolean isOwner = bookInLibrary.Library.ApplicationUser.Id == user.Id;
+            Boolean isFriend = db.Friendships.Any(f => (f.LibraryId == bookInLibrary.LibraryId && f.ApplicationUserId == user.Id));
+            Boolean isRent = db.Rentals.Any(r => (r.BookInLibraryId == bookInLibrary.Id && r.UserId == user.Id && r.EndOfRental == null));
+            if(isRent)
+            {
+                return RedirectToAction("MoreAboutRent", new { bookInLibrary.Id });
+            }
+            else if(!isOwner && !isFriend)
+            {
+                // error
+                ViewBag.Title = "Brak uprawnień";
+                ViewBag.Message = "Nie jesteś właścicielem ani członkiem bibilioteki, w której jest podana książka.";
+                return View("Info");
+            }
+
             // should be only one or null
             var lastReading = db.Readings.Where(r => r.BookInLibraryId == bookInLibrary.Id && r.EndOfReading == null).FirstOrDefault();
             Boolean isCurrentlyReadByMe = false;
             Boolean isCurrentlyReadBySbElse = false;
             String otherReaderName = "";
-            if(lastReading != null)
+            if (lastReading != null)
             {
-                if(lastReading.UserId == user.Id)
+                if (lastReading.UserId == user.Id)
                 {
                     isCurrentlyReadByMe = true;
                 }
@@ -217,7 +234,7 @@ namespace MyLibrary.Controllers
             var borrowerName = "";
             // should be only one or null
             var lastRental = db.Rentals.Where(r => r.BookInLibraryId == bookInLibrary.Id && r.EndOfRental == null).FirstOrDefault();
-            if(lastRental != null)
+            if (lastRental != null)
             {
                 isLent = true;
                 borrowerName = lastRental.User.UserName;
@@ -232,9 +249,64 @@ namespace MyLibrary.Controllers
                 IsLent = isLent,
                 BorrowerName = borrowerName,
 
-                Users = new SelectList(db.Users.Where(u=> u.Id!= user.Id), "Id", "UserName")
+                Users = new SelectList(db.Users.Where(u => u.Id != user.Id), "Id", "UserName")
 
-        };
+            };
+            return View(bookInLibraryViewModel);
+        }
+
+        // GET: BookInLibraries/MoreAboutRent/3
+        // id is the id of a BookInLibrary
+        public ActionResult MoreAboutRent(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BookInLibrary bookInLibrary = db.BooksInLibrary.Find(id);
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (bookInLibrary == null || user == null)
+            {
+                return HttpNotFound();
+            }
+
+            // should be only one or null
+            var lastReading = db.Readings.Where(r => r.BookInLibraryId == bookInLibrary.Id && r.EndOfReading == null).FirstOrDefault();
+            Boolean isCurrentlyReadByMe = false;
+            Boolean isCurrentlyReadBySbElse = false;
+            String otherReaderName = "";
+            if (lastReading != null)
+            {
+                if (lastReading.UserId == user.Id)
+                {
+                    isCurrentlyReadByMe = true;
+                }
+                else
+                {
+                    isCurrentlyReadBySbElse = true;
+                    otherReaderName = lastReading.User.UserName;
+                }
+            }
+
+            var isLent = false;
+            var borrowerName = ""; // borrower is the owner of a librry
+            // should be only one or null
+            var lastRental = db.Rentals.Where(r => r.BookInLibraryId == bookInLibrary.Id && r.EndOfRental == null).FirstOrDefault();
+            if (lastRental != null)
+            {
+                isLent = true;
+                borrowerName = lastRental.User.UserName;
+            }
+
+            var bookInLibraryViewModel = new BookInLibraryViewModel
+            {
+                BookInLibrary = bookInLibrary,
+                IsCurrentlyReadByMe = isCurrentlyReadByMe,
+                IsCurrentlyReadBySbElse = isCurrentlyReadBySbElse,
+                OtherReaderName = otherReaderName,
+                IsLent = isLent,
+                BorrowerName = borrowerName,
+            };
             return View(bookInLibraryViewModel);
         }
 
@@ -254,8 +326,8 @@ namespace MyLibrary.Controllers
             {
                 return HttpNotFound();
             }
-            
-            if(user.Id == bookInLibrary.Library.ApplicationUser.Id) // deletes only if book is in a library of logged user
+
+            if (user.Id == bookInLibrary.Library.ApplicationUser.Id) // deletes only if book is in a library of logged user
             {
                 db.BooksInLibrary.Remove(bookInLibrary);
                 db.SaveChanges();
@@ -283,14 +355,14 @@ namespace MyLibrary.Controllers
             {
                 return HttpNotFound();
             }
-            
+
             var bookInLibrary = new BookInLibrary
             {
                 Book = book,
                 Library = user.Library
             };
 
-            
+
             db.BooksInLibrary.Add(bookInLibrary);
             db.SaveChanges();
 
