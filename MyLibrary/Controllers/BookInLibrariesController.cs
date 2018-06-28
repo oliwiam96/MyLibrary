@@ -61,7 +61,7 @@ namespace MyLibrary.Controllers
             }
             BookInLibrary bookInLibrary = db.BooksInLibrary.Find(id);
             var user = UserManager.FindById(User.Identity.GetUserId());
-            if (bookInLibrary == null || user == null)
+            if (bookInLibrary == null || user == null || !IsFriendOrOwner(bookInLibrary, user))
             {
                 return HttpNotFound();
             }
@@ -89,7 +89,7 @@ namespace MyLibrary.Controllers
             var user = UserManager.FindById(User.Identity.GetUserId());
             var rental = db.Rentals.Where(r => r.BookInLibraryId == bookInLibrary.Id && r.EndOfRental == null).FirstOrDefault();
 
-            if (bookInLibrary == null || user == null || rental == null)
+            if (bookInLibrary == null || user == null || rental == null || !IsFriendOrOwner(bookInLibrary, user))
             {
                 return HttpNotFound();
             }
@@ -112,7 +112,7 @@ namespace MyLibrary.Controllers
             var user = UserManager.FindById(User.Identity.GetUserId());
             var rental = db.Rentals.Where(r => r.BookInLibraryId == bookInLibrary.Id && r.EndOfRental == null).FirstOrDefault();
 
-            if (bookInLibrary == null || user == null || rental == null)
+            if (bookInLibrary == null || user == null || rental == null || !CanGiveBack(rental, user))
             {
                 return HttpNotFound();
             }
@@ -134,7 +134,7 @@ namespace MyLibrary.Controllers
             }
             BookInLibrary bookInLibrary = db.BooksInLibrary.Find(id);
             var user = UserManager.FindById(User.Identity.GetUserId());
-            if (bookInLibrary == null || user == null)
+            if (bookInLibrary == null || user == null || !IsFriendOrOwner(bookInLibrary, user))
             {
                 return HttpNotFound();
             }
@@ -163,7 +163,7 @@ namespace MyLibrary.Controllers
             }
             BookInLibrary bookInLibrary = db.BooksInLibrary.Find(id);
             var user = UserManager.FindById(User.Identity.GetUserId());
-            if (bookInLibrary == null || user == null)
+            if (bookInLibrary == null || user == null || !CanRead(bookInLibrary, user))
             {
                 return HttpNotFound();
             }
@@ -192,7 +192,7 @@ namespace MyLibrary.Controllers
             BookInLibrary bookInLibrary = db.BooksInLibrary.Find(id);
             var user = UserManager.FindById(User.Identity.GetUserId());
             var reading = db.Readings.Where(r => r.BookInLibraryId == bookInLibrary.Id && r.UserId == user.Id && r.EndOfReading == null).FirstOrDefault();
-            if (bookInLibrary == null || user == null || reading == null)
+            if (bookInLibrary == null || user == null || reading == null || !CanRead(bookInLibrary, user))
             {
                 return HttpNotFound();
             }
@@ -222,11 +222,11 @@ namespace MyLibrary.Controllers
             // check if logged user has permissions to access this book
             Boolean isFriendOrOwner = IsFriendOrOwner(bookInLibrary, user);
             Boolean isRent = db.Rentals.Any(r => (r.BookInLibraryId == bookInLibrary.Id && r.UserId == user.Id && r.EndOfRental == null));
-            if(isRent)
+            if (isRent)
             {
                 return RedirectToAction("MoreAboutRent", new { bookInLibrary.Id });
             }
-            else if(!isFriendOrOwner)
+            else if (!isFriendOrOwner)
             {
                 // error
                 ViewBag.Title = "Brak uprawnień";
@@ -284,6 +284,25 @@ namespace MyLibrary.Controllers
             return isOwner || isFriend;
         }
 
+        // checks if user can give back a book (is a borrower or a friend of a borrower)
+        private Boolean CanGiveBack(Rental rental, ApplicationUser user)
+        {
+
+            Boolean isBorrower = rental.UserId == user.Id;
+            Boolean isFriend = db.Friendships.Any(f => (f.LibraryId == rental.User.Library.Id && f.ApplicationUserId == user.Id));
+            return isBorrower || isFriend;
+        }
+
+        // checks if user can start/end reading a book
+        private Boolean CanRead(BookInLibrary bookInLibrary, ApplicationUser user)
+        {
+            Boolean canRead = IsFriendOrOwner(bookInLibrary, user);
+            Rental rental = db.Rentals.Where(r => (r.BookInLibraryId == bookInLibrary.Id && r.UserId == user.Id && r.EndOfRental == null)).FirstOrDefault();
+            if (rental != null)
+                canRead = canRead || CanGiveBack(rental, user);
+            return canRead;
+        }
+
         // GET: BookInLibraries/MoreAboutRent/3
         // id is the id of a BookInLibrary
         public ActionResult MoreAboutRent(int? id)
@@ -294,7 +313,8 @@ namespace MyLibrary.Controllers
             }
             BookInLibrary bookInLibrary = db.BooksInLibrary.Find(id);
             var user = UserManager.FindById(User.Identity.GetUserId());
-            if (bookInLibrary == null || user == null)
+            var lastRental = db.Rentals.Where(r => r.BookInLibraryId == bookInLibrary.Id && r.EndOfRental == null).FirstOrDefault();
+            if (bookInLibrary == null || user == null || lastRental == null || !CanGiveBack(lastRental, user))
             {
                 return HttpNotFound();
             }
@@ -320,7 +340,6 @@ namespace MyLibrary.Controllers
             var isLent = false;
             var borrowerName = ""; // borrower is the owner of a librry
             // should be only one or null
-            var lastRental = db.Rentals.Where(r => r.BookInLibraryId == bookInLibrary.Id && r.EndOfRental == null).FirstOrDefault();
             if (lastRental != null)
             {
                 isLent = true;
@@ -342,7 +361,6 @@ namespace MyLibrary.Controllers
 
         // GET: BookInLibraries/DeleteBookFromLibrary/3
         // id is the id of a BookInLibrary
-        // deletes only if book is in a library of logged user
         public ActionResult DeleteBookFromLibrary(int? id)
         {
             if (id == null)
@@ -355,12 +373,18 @@ namespace MyLibrary.Controllers
             {
                 return HttpNotFound();
             }
-            if(IsFriendOrOwner(bookInLibrary, user))// deletes only if user has permissions
+            if (IsFriendOrOwner(bookInLibrary, user))// deletes only if user has permissions
             {
                 db.BooksInLibrary.Remove(bookInLibrary);
                 db.SaveChanges();
             }
-            return RedirectToAction("Index", "Libraries", new { id = bookInLibrary.LibraryId});
+            else
+            {
+                ViewBag.Title = "Błąd";
+                ViewBag.Message = "Nie masz uprawnień, żeby usunąć książkę z tej biblioteki.";
+                return View("Info");
+            }
+            return RedirectToAction("Index", "Libraries", new { id = bookInLibrary.LibraryId });
         }
 
 
@@ -407,14 +431,13 @@ namespace MyLibrary.Controllers
                 ViewBag.Title = "Błąd";
                 ViewBag.Message = "Nie masz uprawnień, żeby dodawać książki do tej biblioteki.";
                 return View("Info");
-            }            
+            }
         }
 
 
 
         // GET: BookInLibraries/DeleteComment/3
         // id is the id of a comment
-        // deletes only if book is in a library of logged user
         public ActionResult DeleteComment(int? id)
         {
             if (id == null)
@@ -429,7 +452,7 @@ namespace MyLibrary.Controllers
                 return HttpNotFound();
             }
 
-            if (user.Id == bookInLibrary.Library.ApplicationUser.Id) // deletes only if book is in a library of logged user
+            if (IsFriendOrOwner(bookInLibrary, user))// deletes only if user has permissions
             {
                 db.Comments.Remove(comment);
                 db.SaveChanges();
@@ -453,8 +476,7 @@ namespace MyLibrary.Controllers
             {
                 return HttpNotFound();
             }
-
-            if (user.Id == bookInLibrary.Library.ApplicationUser.Id) // deletes only if book is in a library of logged user
+            if (IsFriendOrOwner(bookInLibrary, user))// deletes only if user has permissions
             {
                 db.Readings.Remove(reading);
                 db.SaveChanges();
@@ -464,7 +486,6 @@ namespace MyLibrary.Controllers
 
         // GET: BookInLibraries/DeleteRental/3
         // id is the id of a rental
-        // deletes only if book is in a library of logged user
         public ActionResult DeleteRental(int? id)
         {
             if (id == null)
@@ -479,7 +500,7 @@ namespace MyLibrary.Controllers
                 return HttpNotFound();
             }
 
-            if (user.Id == bookInLibrary.Library.ApplicationUser.Id) // deletes only if book is in a library of logged user
+            if (IsFriendOrOwner(bookInLibrary, user))// deletes only if user has permissions
             {
                 db.Rentals.Remove(rental);
                 db.SaveChanges();
