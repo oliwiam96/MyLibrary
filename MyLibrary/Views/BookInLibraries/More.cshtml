@@ -7,6 +7,7 @@
 }
 
 <h2>Książka w bibibliotece</h2>
+@Html.ActionLink("Powrót do biblioteki", "Index", "Libraries")
 <div class="media">
     <div class="thumbnail">
         <div class="media-left">
@@ -107,7 +108,7 @@
                     <td>@readings.ElementAt(i).User.UserName</td>
                     <td>
                         @Html.ActionLink("Usuń", "DeleteReading", "BookInLibraries", new { id = readings.ElementAt(i).Id },
-                                 new { onclick = "return confirm('Czy na pewno chcesz usunąć ten wpis o czytaniu?');" })
+                                      new { onclick = "return confirm('Czy na pewno chcesz usunąć ten wpis o czytaniu?');" })
                     </td>
                 </tr>
             }
@@ -138,7 +139,7 @@
                     <td>@comments.ElementAt(i).Text</td>
                     <td>
                         @Html.ActionLink("Usuń", "DeleteComment", "BookInLibraries", new { id = comments.ElementAt(i).Id },
-                               new { onclick = "return confirm('Czy na pewno chcesz usunąć ten komentarz?');" })
+                                    new { onclick = "return confirm('Czy na pewno chcesz usunąć ten komentarz?');" })
                     </td>
                 </tr>
             }
@@ -179,7 +180,7 @@
                     <td>@rentals.ElementAt(i).User.UserName</td>
                     <td>
                         @Html.ActionLink("Usuń", "DeleteRental", "BookInLibraries", new { id = rentals.ElementAt(i).Id },
-                                 new { onclick = "return confirm('Czy na pewno chcesz usunąć ten wpis o wypożyczeniu?');" })
+                                      new { onclick = "return confirm('Czy na pewno chcesz usunąć ten wpis o wypożyczeniu?');" })
                     </td>
                 </tr>
             }
