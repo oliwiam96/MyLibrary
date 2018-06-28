@@ -49,11 +49,11 @@
                                         <h3>@Model.BookInLibraryCurrent.ElementAt(jj).Book.Title</h3>
                                         <h4>@Model.BookInLibraryCurrent.ElementAt(jj).Book.Author</h4>
                                         <p>
-                                            @Html.ActionLink("Więcej", "More",
-                                                                                   "BookInLibraries", new { id = Model.BookInLibraryCurrent.ElementAt(jj).Id }, null) |
+                                            @Html.ActionLink("Więcej", "More", "BookInLibraries",
+                                                new { id = Model.BookInLibraryCurrent.ElementAt(jj).Id }, null) |
                                             @Html.ActionLink("Usuń", "DeleteBookFromLibrary",
-                                                                                  "BookInLibraries", new { id = Model.BookInLibraryCurrent.ElementAt(jj).Id },
-                                                                                  new { onclick = "return confirm('Czy na pewno chcesz usunąć tę pozycję?');" })
+                                                                                       "BookInLibraries", new { id = Model.BookInLibraryCurrent.ElementAt(jj).Id },
+                                                                                       new { onclick = "return confirm('Czy na pewno chcesz usunąć tę pozycję?');" })
                                         </p>
                                     </div>
 
@@ -136,10 +136,10 @@
                                         <p>
                                         <p>
                                             @Html.ActionLink("Więcej", "More",
-                                                    "BookInLibraries", new { id = Model.BookInLibraryRentalOutside.ElementAt(j).Id }, null) |
+                                                         "BookInLibraries", new { id = Model.BookInLibraryRentalOutside.ElementAt(j).Id }, null) |
                                             @Html.ActionLink("Usuń", "DeleteBookFromLibrary",
-                                                   "BookInLibraries", new { id = Model.BookInLibraryRentalOutside.ElementAt(j).Id },
-                                                   new { onclick = "return confirm('Czy na pewno chcesz usunąć tę pozycję?');" })
+                                                        "BookInLibraries", new { id = Model.BookInLibraryRentalOutside.ElementAt(j).Id },
+                                                        new { onclick = "return confirm('Czy na pewno chcesz usunąć tę pozycję?');" })
                                         </p>
                                         </p>
                                     </div>

@@ -8,3 +8,17 @@
 #boldH3 {
     font-weight: bold;
 }
+
+#my_image {
+    width: 180px;
+}
+#my_image_medium {
+    width: 140px;
+}
+
+#my_image_small {
+    width: 80px;
+}
+#comment {
+    min-width: 100%;
+}
