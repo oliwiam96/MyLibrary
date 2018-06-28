@@ -102,9 +102,13 @@ namespace MyLibrary.Controllers
             string Url = urlExternal;
             HtmlWeb web = new HtmlWeb();
             HtmlDocument doc = web.Load(Url);
-            string title = doc.DocumentNode.SelectNodes("//*[@id=\"content\"]/div[2]/div[4]/div[1]/h1")[0].InnerText;
-            string author = doc.DocumentNode.SelectNodes("//*[@id=\"content\"]/div[2]/div[4]/div[1]/div[1]/span/a")[0].InnerText;
-            string urlPhoto = doc.DocumentNode.SelectNodes("//*[@id=\"content\"]/div[2]/div[3]/div/a/img")[0].Attributes["src"].Value;
+            
+            string author = doc.DocumentNode.SelectNodes("//*[@id=\"content\"]/div[3]/div[4]/div[1]/div[1]/span/a")[0].InnerText;
+            string title = doc.DocumentNode.SelectNodes("//*[@id=\"content\"]/div[3]/div[4]/div[1]/h1")[0].InnerText;
+            string urlPhoto = doc.DocumentNode.SelectNodes("//*[@id=\"content\"]/div[3]/div[3]/div/a/img")[0].Attributes["src"].Value;
+            //string title = doc.DocumentNode.SelectNodes("//*[@id=\"content\"]/div[2]/div[4]/div[1]/h1")[0].InnerText;
+            //string author = doc.DocumentNode.SelectNodes("//*[@id=\"content\"]/div[2]/div[4]/div[1]/div[1]/span/a")[0].InnerText;
+            //string urlPhoto = doc.DocumentNode.SelectNodes("//*[@id=\"content\"]/div[2]/div[3]/div/a/img")[0].Attributes["src"].Value;
 
             Book book = new Book
             {
