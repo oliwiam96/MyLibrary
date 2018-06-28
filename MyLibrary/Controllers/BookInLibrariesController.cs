@@ -47,6 +47,10 @@ namespace MyLibrary.Controllers
             }
             return View(bookInLibrary);
         }
+
+        // TODO Oli teraz: dodac date w czytaniu (wczesniej wszystko usunac), moze cos te przerwy i to brzydactwo overlay nav header
+
+
         //POST: BookInLibraries/AddComment
         [HttpPost]
         public ActionResult AddComment(int? id, BookInLibraryViewModel model)
