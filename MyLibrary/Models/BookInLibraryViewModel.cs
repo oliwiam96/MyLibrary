@@ -11,6 +11,8 @@ namespace MyLibrary.Models
         public BookInLibrary BookInLibrary { get; set; }
 
         public Boolean IsLent { get; set; }
+        public Boolean isLentOutside { get; set; }
+
         public String BorrowerName { get; set; }
 
         public Boolean IsCurrentlyReadBySbElse { get; set; }

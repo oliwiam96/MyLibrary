@@ -98,6 +98,28 @@ namespace MyLibrary.Controllers
             db.SaveChanges();
 
             return RedirectToAction("More", new { id });
+        }
+
+        // GET: BookInLibraries/GiveBackConfirmToOutside/3
+        public ActionResult GiveBackConfirmToOutside(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BookInLibrary bookInLibrary = db.BooksInLibrary.Find(id);
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            var rentalToOutside = db.RentalsToOutside.Where(r => r.BookInLibraryId == bookInLibrary.Id && r.EndOfRental == null).FirstOrDefault();
+
+            if (bookInLibrary == null || user == null || rentalToOutside == null || !IsFriendOrOwner(bookInLibrary, user))
+            {
+                return HttpNotFound();
+            }
+            rentalToOutside.EndOfRental = DateTime.Now;
+            db.Entry(rentalToOutside).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("More", new { id });
 
         }
 
@@ -151,6 +173,32 @@ namespace MyLibrary.Controllers
 
 
             return RedirectToAction("More", new { id });
+        }
+
+        // GET: BookInLibraries/RentToOutside/3
+        // id is the id of a BookInLibrary
+        public ActionResult RentToOutside(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BookInLibrary bookInLibrary = db.BooksInLibrary.Find(id);
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (bookInLibrary == null || user == null || !IsFriendOrOwner(bookInLibrary, user))
+            {
+                return HttpNotFound();
+            }
+            var rentalToOutside = new RentalToOutside
+            {
+                BookInLibrary = bookInLibrary,
+                StartOfRental = DateTime.Now
+            };
+            db.RentalsToOutside.Add(rentalToOutside);
+            db.SaveChanges();
+
+            return RedirectToAction("More", new { id });
+
         }
 
         // GET: BookInLibraries/StartReading/3
@@ -262,6 +310,8 @@ namespace MyLibrary.Controllers
                 borrowerName = lastRental.User.UserName;
             }
 
+            var isLentOutside = db.RentalsToOutside.Any(r => r.BookInLibraryId == bookInLibrary.Id && r.EndOfRental == null);
+
             var bookInLibraryViewModel = new BookInLibraryViewModel
             {
                 BookInLibrary = bookInLibrary,
@@ -270,6 +320,7 @@ namespace MyLibrary.Controllers
                 OtherReaderName = otherReaderName,
                 IsLent = isLent,
                 BorrowerName = borrowerName,
+                isLentOutside = isLentOutside,
 
                 Users = new SelectList(db.Users.Where(u => u.Id != bookInLibrary.Library.ApplicationUser.Id), "Id", "UserName")
 

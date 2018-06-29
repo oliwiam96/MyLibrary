@@ -7,7 +7,7 @@
 }
 
 <h2>Książka w bibibliotece</h2>
-@Html.ActionLink("Powrót do biblioteki", "Index", "Libraries",  new { id = Model.BookInLibrary.LibraryId}, null)
+@Html.ActionLink("Powrót do biblioteki", "Index", "Libraries", new { id = Model.BookInLibrary.LibraryId }, null)
 <div class="media">
     <div class="thumbnail">
         <div class="media-left">
@@ -19,12 +19,12 @@
             <h4>Właściciel: @Model.BookInLibrary.Library.ApplicationUser.UserName</h4>
             <p></p>
             @{
-                if (!Model.IsLent)
+                if (!Model.IsLent && !Model.isLentOutside)
                 {
                     if (Model.IsCurrentlyReadByMe)
                     {
                         <p>Aktualnie czytana przeze mnie</p>
-                        <a href="@Url.Action("EndReading", new { id = Model.BookInLibrary.Id})" class="btn btn-primary">
+                        <a href="@Url.Action("EndReading", new { id = Model.BookInLibrary.Id })" class="btn btn-primary">
                             Zakończ czytanie
                         </a>
                     }
@@ -35,8 +35,11 @@
                     else
                     {
                         <p>Aktualnie czytana: nie</p>
-                        <a href="@Url.Action("StartReading", new { id = Model.BookInLibrary.Id})" class="btn btn-primary">
+                        <a href="@Url.Action("StartReading", new { id = Model.BookInLibrary.Id })" class="btn btn-primary">
                             Rozpocznij czytanie
+                        </a>
+                        <a href="@Url.Action("RentToOutside", new { id = Model.BookInLibrary.Id })" class="btn btn-warning">
+                            Wypożycz NA ZEWNĄTRZ
                         </a>
 
                         using (Html.BeginForm("Rent", "BookInLibraries", new { id = Model.BookInLibrary.Id }, FormMethod.Post, null))
@@ -53,11 +56,18 @@
                         }
                     }
                 }
-                else
+                else if (Model.IsLent)
                 {
                     <p> Wypożyczona dla: @Model.BorrowerName </p>
-                    <a href="@Url.Action("GiveBackConfirm", new { id = Model.BookInLibrary.Id})" class="btn btn-info">
+                    <a href="@Url.Action("GiveBackConfirm", new { id = Model.BookInLibrary.Id })" class="btn btn-info">
                         Zgłoś zwrot wypożyczenia
+                    </a>
+                }
+                else if (Model.isLentOutside) // else
+                {
+                    <p> Wypożyczona NA ZEWNĄTRZ </p>
+                    <a href="@Url.Action("GiveBackConfirmToOutside", new { id = Model.BookInLibrary.Id })" class="btn btn-info">
+                        Zgłoś zwrot wypożyczenia Z ZEWNĄTRZ
                     </a>
                 }
             }
@@ -106,7 +116,7 @@
                     <td>@readings.ElementAt(i).User.UserName</td>
                     <td>
                         @Html.ActionLink("Usuń", "DeleteReading", "BookInLibraries", new { id = readings.ElementAt(i).Id },
-                                      new { onclick = "return confirm('Czy na pewno chcesz usunąć ten wpis o czytaniu?');" })
+                                                          new { onclick = "return confirm('Czy na pewno chcesz usunąć ten wpis o czytaniu?');" })
                     </td>
                 </tr>
             }
@@ -137,7 +147,7 @@
                     <td>@comments.ElementAt(i).Text</td>
                     <td>
                         @Html.ActionLink("Usuń", "DeleteComment", "BookInLibraries", new { id = comments.ElementAt(i).Id },
-                                    new { onclick = "return confirm('Czy na pewno chcesz usunąć ten komentarz?');" })
+                                                        new { onclick = "return confirm('Czy na pewno chcesz usunąć ten komentarz?');" })
                     </td>
                 </tr>
             }
@@ -178,7 +188,7 @@
                     <td>@rentals.ElementAt(i).User.UserName</td>
                     <td>
                         @Html.ActionLink("Usuń", "DeleteRental", "BookInLibraries", new { id = rentals.ElementAt(i).Id },
-                                      new { onclick = "return confirm('Czy na pewno chcesz usunąć ten wpis o wypożyczeniu?');" })
+                                                          new { onclick = "return confirm('Czy na pewno chcesz usunąć ten wpis o wypożyczeniu?');" })
                     </td>
                 </tr>
             }

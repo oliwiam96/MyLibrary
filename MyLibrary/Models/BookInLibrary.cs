@@ -18,5 +18,6 @@ namespace MyLibrary.Models
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Reading> Readings { get; set; }
         public virtual ICollection<Rental> Rentals { get; set; }
+        public virtual ICollection<RentalToOutside> RentalsToOutside { get; set; }
     }
 }

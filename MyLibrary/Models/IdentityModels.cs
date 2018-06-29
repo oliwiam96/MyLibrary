@@ -29,6 +29,8 @@ namespace MyLibrary.Models
 
         public virtual ICollection<Friendship> Friendships{ get; set; } // biblioteki, do ktorych mnie zaproszono
 
+        public virtual ICollection<RentalToOutside> RentalsToOutside { get; set; }
+
         public virtual ICollection<Rental> Rentals { get; set; } //ksiazki, ktore ja pozyczylem od kogos
         //TODO!!! czy to potrzebne, skoro jest user.Library.BookInLibraries.Rentals!!! TODO
         // info o pozyczonych komus sa w ksiazkach w mojej bibliotece
@@ -65,6 +67,7 @@ namespace MyLibrary.Models
         public System.Data.Entity.DbSet<MyLibrary.Models.Library> Libraries { get; set; }
         public System.Data.Entity.DbSet<MyLibrary.Models.Reading> Readings { get; set; }
         public System.Data.Entity.DbSet<MyLibrary.Models.Rental> Rentals { get; set; }
+        public System.Data.Entity.DbSet<MyLibrary.Models.RentalToOutside> RentalsToOutside { get; set; }
         public System.Data.Entity.DbSet<MyLibrary.Models.RentalExternal> RentalsExternal { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
